@@ -1,0 +1,158 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Form\Login $block */
+?>
+<?php
+/**
+ * Customer login form template
+ *
+ * @see \Magento\Customer\Block\Form\Login
+ * @var $block \Magento\Customer\Block\Form\Login
+ */
+?>
+<div id="menu1" class="tab-pane fade active in">
+    <div class="product-details customize-block">
+        <div class="product-header ">
+            <h2>Please login to proceed with order</h2>
+        </div>
+
+        <div class="login-btn">
+            <a href="javascript:;" class="active">Login</a>
+            <a href="<?php /* @escapeNotVerified */ echo $this->getUrl('customer/account/create'); ?>" class="action create primary">Register</a>
+        </div>
+        <!--            <div class="block-title">
+                        <strong id="block-customer-login-heading" role="heading" aria-level="2"><?php /* @escapeNotVerified */ echo __('Registered Customers') ?></strong>
+                    </div>-->
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="block-content  login-block" aria-labelledby="block-customer-login-heading">
+                    <form class="form form-login"
+                          action="<?php /* @escapeNotVerified */ echo $block->getPostActionUrl() ?>"
+                          method="post"
+                          id="login-form"
+                          data-mage-init='{"validation":{}}'>
+                              <?php echo $block->getBlockHtml('formkey'); ?>
+                        <fieldset class="fieldset login" data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>">
+                            <!--<div class="field note"><?php /* @escapeNotVerified */ echo __('If you have an account, sign in with your email address.') ?></div>-->
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-4">
+                                    <div class="label-text">
+                                        <h6>E-mail <span>*</span></h6>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9 col-xs-8">
+                                    <div class="input-field ">
+                                        <input name="login[username]"  placeholder="Your Email"  value="<?php echo $block->escapeHtml($block->getUsername()) ?>" <?php if ($block->isAutocompleteDisabled()) : ?> autocomplete="off"<?php endif; ?> id="email" type="email" class="input-text" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" data-validate="{required:true, 'validate-email':true}">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-4">
+                                    <div class="label-text">
+                                        <h6>Password <span>*</span></h6>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9 col-xs-8">
+                                    <div class="input-field">
+                                        <!--<input required="" name="name" type="text" placeholder="your password">-->
+                                        <input name="login[password]" type="password" <?php if ($block->isAutocompleteDisabled()) : ?> autocomplete="off"<?php endif; ?> class="input-text" id="pass" title="<?php /* @escapeNotVerified */ echo __('Password') ?>" placeholder="Your Password" data-validate="{required:true}">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--                        <div class="field email required">
+                                                        <label class="label" for="email"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
+                                                        <div class="control">
+                                                            <input name="login[username]" value="<?php echo $block->escapeHtml($block->getUsername()) ?>" <?php if ($block->isAutocompleteDisabled()) : ?> autocomplete="off"<?php endif; ?> id="email" type="email" class="input-text" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" data-validate="{required:true, 'validate-email':true}">
+                                                        </div>
+                                                    </div>-->
+                            <!--                    <div class="field password required">
+                                                    <label for="pass" class="label"><span><?php /* @escapeNotVerified */ echo __('Password') ?></span></label>
+                                                    <div class="control">
+                                                        <input name="login[password]" type="password" <?php if ($block->isAutocompleteDisabled()) : ?> autocomplete="off"<?php endif; ?> class="input-text" id="pass" title="<?php /* @escapeNotVerified */ echo __('Password') ?>" data-validate="{required:true}">
+                                                    </div>
+                                                </div>-->
+                            <?php echo $block->getChildHtml('form_additional_info'); ?>
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="generate-password">
+                                        <a class="action remind" href="<?php /* @escapeNotVerified */ echo $block->getForgotPasswordUrl() ?>"><h6>Generate password and send it by email</h6></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="actions-toolbar">
+                                <div class="primary"><button type="submit" class="action login primary" name="send" id="send2"><span><?php /* @escapeNotVerified */ echo __('Sign In') ?></span></button></div>
+                                <!--<div class="secondary"><a class="action remind" href="<?php /* @escapeNotVerified */ echo $block->getForgotPasswordUrl() ?>"><span><?php /* @escapeNotVerified */ echo __('Forgot Your Password?') ?></span></a></div>-->
+                            </div>
+                        </fieldset>
+                    </form>
+                </div></div>
+            <div class="col-sm-5">
+<!--                <div class="login-fb">
+                    <span>or</span>
+                    <div class="loginfb-block">
+                        <a href="javascript:;" class="facebook_trigger"><i class="fa fa-facebook" aria-hidden="true"></i> Sign up with Facebook</a>
+                    </div>
+                </div>-->
+            </div>
+        </div><!--/row-->
+    </div>
+</div>
+</div>
+</div>
+<!--</div>-->
+</div>
+<div class="footer-tab">
+    <div class="container">
+        <div class="tab-finner login_btn">
+            <!--<form name="page1" action="step2.php" method="POST">-->
+
+            <button id="login_btn" >
+                Log in <span><img src="<?php echo $this->getViewFileUrl('images/arrow-right-2.png'); ?>"></span>
+            </button>
+            <!--</form>-->
+            <div class="footertab-block">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="tab-fimg">
+                            <img src="<?php echo $this->getViewFileUrl('images/tab-footer-img.png'); ?>">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="tab-flink">
+                            <h4>Your subscription supports the local economy </h4>
+                            <ul class="list-unstyled">
+                                <li><a href="#">You get your subscription</a></li>
+                                <li><a href="#">You provide a solution to a girl</a></li>
+                                <li><a href="#">You provide a job to a woman so she can support her family </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require(["jquery"], function ($) {
+        $(document).ready(function () {
+            $(".btn.btn-block.btn-social.btn-facebook").hide();
+            $(".footer-main").hide();
+            $("#send2").hide();
+            $("#login_btn").click(function () {
+                $("#send2").click();
+
+            });
+            $(".facebook_trigger").click(function () {
+                $(".btn.btn-block.btn-social.btn-facebook").click();
+            });
+        });
+    });
+</script>

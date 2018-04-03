@@ -1,0 +1,19 @@
+<style>  
+    .hideme{display:none;}
+</style>
+<script type="text/x-magento-init">
+    {
+    "*": {
+    "[Namespace]_[Modulename]/js/YOURFILE": {
+    "AjaxUrl": "<?php echo $block->getAjaxUrl(); ?>",
+    }
+    }
+    }
+</script>
+<div id='test' class="hideme">
+    <select>
+        <% _.each(posts, function(text,value) { %>
+        <option value="<%= value %>"><%= text %></option>
+        <% }) %> 
+    </select>
+</div>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2017 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="MageWorx_Donations::donations_wrapper"   title="MageWorx Donations" module="MageWorx_Donations" sortOrder="60" parent="Magento_Sales::sales"  resource="MageWorx_Donations::donations_wrapper" />
+         <!-- <add id="MageWorx_Donations::statistics" title="Donations Statistics" module="MageWorx_Donations" sortOrder="65" parent="MageWorx_Donations::donations_wrapper" action="mageworx_donations/statistics/" resource="MageWorx_Donations::statistics" /> -->
+         <add id="MageWorx_Donations::charity" title="Donations Charity" module="MageWorx_Donations" sortOrder="70" parent="MageWorx_Donations::donations_wrapper" action="mageworx_donations/charity/index" resource="MageWorx_Donations::charity" />
+    </menu>
+</config>

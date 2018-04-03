@@ -1,0 +1,35 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php $_shipment = $block->getShipment() ?>
+<?php
+$_order = $block->getOrder();
+//print_r($_order);
+?>
+<?php if ($_shipment && $_order && $_shipment->getAllTracks()): ?>
+    <br />
+    <table class="shipment-track">
+        <thead>
+            <tr>
+                <th style="width: 50%; font-weight:300;line-height:1.1;font-size:18px;margin-top:20px;margin-bottom:10px;padding-left: 0px"><?= /* @escapeNotVerified */ __('Shipped By') ?></th>
+                <th style="width: 50%; font-weight:300;line-height:1.1;font-size:18px;margin-top:20px;margin-bottom:10px;padding-left: 0px"><?= /* @escapeNotVerified */ __('Tracking Number') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($_shipment->getAllTracks() as $_item): ?>
+                <tr>
+                    <td><?= $block->escapeHtml($_item->getTitle()) ?>:</td>
+                    <td>
+                        <a href="https://mytavia.narvar.com/mytavia/tracking/<?= $block->escapeHtml($_item->getTitle()) ?>?tracking_numbers=<?= $block->escapeHtml($_item->getNumber()) ?>&dzip=<?php echo $_order->getShippingAddress()->getData('postcode'); ?>&order_number=<?php echo $_order->getRealOrderId(); ?>"
+                           onclick="this.target = '_blank'">
+                               <?= $block->escapeHtml($_item->getNumber()) ?>
+                        </a>
+                </tr>
+            <?php endforeach ?> 
+        </tbody>
+    </table>
+<?php endif; ?>

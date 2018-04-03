@@ -1,0 +1,23 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Customer\Block\Account\AuthorizationLink */
+$dataPostParam = '';
+if ($block->isLoggedIn()) {
+    $dataPostParam = sprintf(" data-post='%s'", $block->getPostParams());
+}
+?>
+<li class="authorization-link">
+    <a <?php /* @escapeNotVerified */ echo $block->getLinkAttributes(); ?><?php /* @escapeNotVerified */ echo $dataPostParam; ?>>
+        <?php echo $block->escapeHtml($block->getLabel()); ?>
+    </a>
+</li>
+<li class="subscribe-btn"><a href="/tavia/index/index/"> Buy Now </a></li>
+<?php if ($block->isLoggedIn()) { ?>          
+    <li class="box-btn"><a href="/checkout/cart"> <img src="/pub/media/wysiwyg/if_box_227592.png"> My Box </a></li>
+<?php } ?>

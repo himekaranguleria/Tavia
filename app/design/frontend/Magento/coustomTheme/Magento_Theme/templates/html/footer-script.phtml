@@ -1,0 +1,71 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>  
+
+<div id="myModal" class="modal fade video-popup" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="row">
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-4">
+                    <button type="button" class="close close_btn" data-dismiss="modal">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body video_box">
+                <iframe id="videoframe" src="" width="100%" height="600" 
+                        frameborder="0" allowfullscreen=""></iframe>
+            </div><!--/modal-body-->
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    require(['jquery', 'jquery/ui'], function ($) {
+        $(document).ready(function () {
+//            $("#wokid").click(function () {
+//                var offset = 20; //Offset of 20px
+//                $('html, body').animate({
+//                    scrollTop: $("#wokidplace").offset().top + offset
+//                }, 2000);
+//            });
+            $(".videoTrigger").click(function () {
+                $("#videoframe").attr("src", "https://www.youtube.com/embed/xwLEmYyPCno?modestbranding=1&controls=0&rel=0&autoplay=1");
+                setTimeout(function () {
+                    $(".video-popup").toggleClass("open");
+                }, 900);
+            });
+            $(".close_btn").click(function () {
+                $("#videoframe").attr("src", "https://www.youtube.com/embed/xwLEmYyPCno?modestbranding=1&controls=0&rel=0&autoplay=0");
+                $(".video-popup").toggleClass("open");
+            });
+            $("#headerbtn").click(function () {
+                $("#headerbtn").toggleClass("toggle");
+                //$("#bs-example-navbar-collapse-1").toggleClass("toggle-menu");
+                $(".collapse.navbar-collapse").toggleClass("toggle-menu");
+            });
+            var messareprompt = $(".page.messages").html();
+            if (messareprompt) {
+                $(".page.messages").remove();
+                $("<div class='page messages'>" + messareprompt + "</div>").insertAfter(".navbar.navbar-default");
+                $("<div class='page messages'>" + messareprompt + "</div>").insertAfter(".tab-header");
+            }
+        });
+    });
+</script>
+<script>(function (w, d, t, r, u) {
+        var f, n, i;
+        w[u] = w[u] || [], f = function () {
+            var o = {ti: "5712146"};
+            o.q = w[u], w[u] = new UET(o), w[u].push("pageLoad")
+        }, n = d.createElement(t), n.src = r, n.async = 1, n.onload = n.onreadystatechange = function () {
+            var s = this.readyState;
+            s && s !== "loaded" && s !== "complete" || (f(), n.onload = n.onreadystatechange = null)
+        }, i = d.getElementsByTagName(t)[0], i.parentNode.insertBefore(n, i)
+    })(window, document, "script", "//bat.bing.com/bat.js", "uetq");</script><noscript><img src="//bat.bing.com/action/0?ti=5712146&Ver=2" height="0" width="0" style="display:none; visibility: hidden;" /></noscript>

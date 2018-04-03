@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2017 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="mageworx" sortOrder="3001">
+            <label>MageWorx</label>
+        </tab>
+        <section id="mageworx_donations" translate="label" type="text" sortOrder="10" showInDefault="1"
+                 showInWebsite="1" showInStore="1">
+            <label>Donations</label>
+            <tab>mageworx</tab>
+            <resource>MageWorx_Donations::config_donations</resource>
+            <group id="main" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>MageWorx Donations</label>
+                <field id="show_donations_cart" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Accept Cart Donations]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <!--<field id="show_charity_cart" translate="label comment" type="select" sortOrder="20" showInDefault="1"-->
+                       <!--showInWebsite="1" showInStore="1">-->
+                    <!--<label><![CDATA[Display Charity in Cart]]></label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                <!--</field>-->
+                <field id="show_donations_admin" translate="label comment" type="select" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Enable donations in Admin Orders]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="minimum_donations" translate="label comment" type="text" sortOrder="35" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Minimum Donation]]></label>
+                    <validate>validate-number</validate>
+                    <comment><![CDATA[The minimum value of donation]]></comment>
+                </field>
+                <field id="default_description_donations" translate="label comment" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Default Description]]></label>
+                </field>
+                <field id="donations_amount_placeholder" translate="label comment" type="text" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Donation Amount Placeholder]]></label>
+                </field>
+                <field id="show_predefined_values" translate="label comment" type="select" sortOrder="55"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Show Predefined Amounts]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="predefined_values_donation" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Predefined Amounts</label>
+                    <frontend_model>MageWorx\Donations\Block\Adminhtml\Form\Field\PredefinedDonation</frontend_model>
+                    <backend_model>MageWorx\Donations\Model\System\Config\Backend\PredefinedDonation</backend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

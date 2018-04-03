@@ -1,0 +1,48 @@
+<?php
+
+$allow=$this->helper('Modulebazaar\Firstdataapi\Helper\License')->checklicense();
+if($allow){
+?>
+
+<div class="pp-buttons-container">
+    <button id="license_api" onclick="return false;">
+<span style="color:green">The domain is authorized to use module</span>
+    </button>
+</div>
+<?php
+
+}
+else
+{
+?>
+<div id="checkl"><button type="button" id="ap_buttoncl" class="button action continue primary"  onclick="checklicense()" style="float: left"><span>Check Domain License</span></button><br><div id="gl" style="display:none"><span><h3 style=" float: left;color: red">Please get license to use Firstdataapi module</h3><button type="button" id="ap_buttongl" class="button action continue primary"  onclick="getlicense()" style="float: left"><span>Get License</span></button> </span><br><br></div></div>
+<?php
+}
+?>
+<script type="text/javascript">
+function getlicense()
+{
+window.location.href='http://www.modulebazaar.com';
+ 
+
+
+}
+
+
+function checklicense(){
+jQuery.ajax({
+url: "<?php echo $this->getUrl('firstdataapi/license/index/'); ?>",
+showLoader: true,
+type: 'GET',
+success: function(result){
+if(result==1){
+jQuery('#checkl').hide();
+
+
+}
+else{
+jQuery('#gl').show();
+
+}
+}});}
+</script>

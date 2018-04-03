@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2017 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="mageworx_donation_add_donation_to_order"
+                  instance="MageWorx\Donations\Observer\AddDonationToOrder"/>
+    </event>
+    <event name="sales_order_invoice_save_after">
+        <observer name="mageworx_donation_add_donation_to_invoice"
+                  instance="MageWorx\Donations\Observer\AddDonationToInvoice"/>
+    </event>
+    <event name="sales_order_place_after">
+        <observer name="mageworx_donation_clean_data"
+                  instance="MageWorx\Donations\Observer\CleanDonationDataFromSession"/>
+    </event>
+
+</config>

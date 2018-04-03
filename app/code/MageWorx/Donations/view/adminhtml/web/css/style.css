@@ -1,0 +1,37 @@
+.head-donation {
+    margin-top: 20px;
+}
+
+.admin__page-section-title.head-donation.active > .title:after {
+    content: '\e62b';
+    margin-left: 10px;
+}
+
+.admin__page-section-title.head-donation > .title:after {
+    color: inherit;
+    content: '\e628';
+    font-family: 'Admin Icons';
+    vertical-align: middle;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    text-align: center;
+    margin-left: 10px;
+}
+
+#donation_charity{
+    margin-top: 10px;
+}
+
+#charity_block_image{
+    float: left;
+}
+#charity_block_description{
+    margin-left: 5px;
+}
+#charity_image{
+    margin-top: 5px;
+}
+#order-donation-details {
+    width: 200px;
+}

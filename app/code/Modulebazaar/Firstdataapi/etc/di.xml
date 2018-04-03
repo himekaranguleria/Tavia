@@ -1,0 +1,21 @@
+<?xml version="1.0"?>    
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Magento\Quote\Model\Quote\Payment" type="Modulebazaar\Firstdataapi\Model\Quote\Payment" />
+	<preference for="\Magento\Sales\Model\Order\Email\Sender\OrderSender" type="Modulebazaar\Firstdataapi\Model\Order\Email\Sender\OrderSender"/>
+	
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="modulebazaar_firstdataapi_subscriptiontavia_listing_data_source" xsi:type="string">Modulebazaar\Firstdataapi\Model\ResourceModel\Subscriptiontavia\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Modulebazaar\Firstdataapi\Model\ResourceModel\Subscriptiontavia\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">subscriptiontavia</argument>
+            <argument name="resourceModel" xsi:type="string">Modulebazaar\Firstdataapi\Model\ResourceModel\Subscriptiontavia</argument>
+        </arguments>
+    </virtualType>
+</config>
+

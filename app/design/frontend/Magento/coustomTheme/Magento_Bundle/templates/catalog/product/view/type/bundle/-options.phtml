@@ -1,0 +1,74 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php /** @var $block Magento\Bundle\Block\Catalog\Product\View\Type\Bundle */ ?>
+<?php
+$product = $block->getProduct();
+$helper = $this->helper('Magento\Catalog\Helper\Output');
+//------------------------ coustm code- -------------
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$checkoutSession = $objectManager->get('\Magento\Checkout\Model\Session');
+//echo "asdasdasdas";
+//echo "<pre>";
+//
+//print_r($checkoutSession->getitemSelectedArr());
+//echo "</pre>";
+$ary = [];
+$ary = array("50" => "4", "51" => "2", "52" => "4");
+echo "<pre>";
+print_r($ary);
+echo "</pre>";
+//------------------------ coustm code- -------------
+?>
+<?php $options = $block->decorateArray($block->getOptions()); ?>
+<?php if ($product->isSaleable()): ?>
+    <?php if (count($options)): ?>
+        <script type="text/x-magento-init">
+            {
+            "#product_addtocart_form": {
+            "priceBundle": {
+            "optionConfig": <?php /* @escapeNotVerified */ echo $block->getJsonConfig() ?>,
+            "controlContainer": ".field.option"
+            }
+            }
+            }
+        </script>
+        <fieldset class="fieldset fieldset-bundle-options">
+            <legend id="customizeTitle" class="legend title">
+                <span><?php /* @escapeNotVerified */ echo __('Customize %1', $helper->productAttribute($product, $product->getName(), 'name')) ?></span>
+            </legend><br />
+            <?php echo $block->getChildHtml('product_info_bundle_options_top'); ?>
+            <?php foreach ($options as $option): ?>
+                <?php if (!$option->getSelections()): ?>
+                    <?php continue; ?>
+                <?php endif; ?>
+                <?php echo $block->getOptionHtml($option) ?>
+            <?php endforeach; ?>
+        </fieldset>
+    <?php else: ?>
+        <p class="empty"><?php /* @escapeNotVerified */ echo __('No options of this product are available.') ?></p>
+    <?php endif; ?>
+<?php endif; ?>
+<script type="text/javascript">
+    require(["jquery"], function ($) {
+        $(document).ready(function () {
+//            alert("asdasd");
+//            var jqueryarray = <?php // echo json_encode($checkoutSession->getitemSelectedArr());          ?>;
+//            var jqueryarray = <?php // echo json_encode($ary); ?>;
+//            console.log(jqueryarray);
+//            var myVar = setInterval(function () {
+//                $.each(jqueryarray, function (key, value) {
+//                    $(".bundle-option-" + key).click();
+//                    $(".bundle-option-" + key + "-qty").val(value).change();
+//                });
+//                clearInterval(myVar);
+//            }, 10000);
+        }); //document.ready End. 
+    })
+            ; //Jquery box End.
+
+</script>

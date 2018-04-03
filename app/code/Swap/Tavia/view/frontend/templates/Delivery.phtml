@@ -1,0 +1,215 @@
+<?php // echo $block->getUrl('hello/test');                                         ?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$checkoutSession = $objectManager->get('\Magento\Checkout\Model\Session');
+//echo "<pre>";
+//print_r($_POST);
+//echo "</pre>";
+if (@$_POST) {
+    if (@$_POST['itemSelected'])
+        $checkoutSession->setitemSelectedArr($_POST['itemSelected']);
+//    if (@$_POST['Pads'])
+//        $checkoutSession->setPadsArr($_POST['Pads']);
+//    if (@$_POST['Liners'])
+//        $checkoutSession->setLinersArr($_POST['Liners']);
+    if (@$_POST[name]) {
+        $name = $_POST['name'];
+        $street = $_POST['street1'] . " " . $_POST['street2'];
+        $city = $_POST['city'];
+        $state = $_POST['state'];
+        $postcode = $_POST['postcode'];
+        $telephone = $_POST['telephone'];
+        $email = $_POST['email'];
+    }
+//    $orderData = [
+//        'currency_id' => 'USD',
+//        'email' => "sadasd@dsa.com",
+//        'shipping_address' => [
+//            'firstname' => "ASdasd", //address Details
+//            'lastname' => 'Name',
+//            'street' => "sadsad",
+//            'city' => "SAdsads",
+//            'country_id' => 'IN',
+//            'region' => 'xxx',
+//            'postcode' => "1111",
+//            'telephone' => "111111111",
+//            'fax' => '32423',
+//            'save_in_address_book' => 1
+//        ],
+//        'items' => [
+//            ['product_id' => '48', 'qty' => 1]
+//        ]
+//    ];
+//
+//    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+//    $objectManager->get('Swap\Tavia\Controller\Index\Order')->createOrder($orderData);
+}
+?>
+
+<form method="POST" action="<?= $block->getUrl('test3.html') ?>">
+    <div class="container">  
+        <div id="menu1" class="tab-pane fade in active">
+            <div class="product-details customize-block">
+                <div class="product-header ">
+                    <h2>Ship to</h2>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-7 col-lg-6">
+                        <div class="ship-block">
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-4">
+                                    <div class="label-text">
+                                        <h6>Full Name</h6>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9 col-xs-8">
+                                    <div class="input-field">
+                                        <input required="" name="name" type="text" placeholder="Name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-4">
+                                    <div class="label-text">
+                                        <h6>Street Address</h6>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9 col-xs-8">
+                                    <div class="input-field">
+                                        <input required=""  type="text" name="street1" placeholder="Street and number, P.O.Box c/o">
+                                        <input type="text" name="street2" placeholder="Apartment, suite, unit, building, floor, etc.">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-4">
+                                    <div class="label-text">
+                                        <h6>City</h6>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9 col-xs-8">
+                                    <div class="input-field">
+                                        <input required=""  name="city" type="text">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-4">
+                                    <div class="label-text">
+                                        <h6>State/Province</h6>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-xs-8">
+                                    <div class="input-field">
+                                        <input required=""  name="state" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 col-xs-4">
+                                    <div class="label-text">
+                                        <h6>Zip code</h6>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-xs-8">
+                                    <div class="input-field">
+                                        <input required=""  name="postcode" type="text">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-4">
+                                    <div class="label-text">
+                                        <h6>Phone number</h6>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9 col-xs-8">
+                                    <div class="input-field">
+                                        <input required=""  name="telephone" type="text" placeholder="For example 555 222 333 ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-4">
+                                    <div class="label-text">
+                                        <h6>Email</h6>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9 col-xs-8">
+                                    <div class="input-field">
+                                        <input required=""  name="email" type="text" placeholder="For example myemail@gmail.com">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 col-xs-4">
+
+                                </div>
+                                <div class="col-sm-9 col-xs-12">
+                                    <div class="input-field">
+                                        <input id="checkbox-1" class="checkbox-custom" name="checkbox-2" type="checkbox">
+                                        <label for="checkbox-1" class="checkbox-custom-label">By Placing your order,you agree to Tavia's Orivacy Policy and Terms</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="responsivedeliverybtn">
+                                <button type="submit" name="Submit">
+                                    Submit <span><img src="<?php echo $this->getViewFileUrl('images/arrow-right-2.png'); ?>"></span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12 col-md-5 col-lg-6">
+                        <div class="box-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/box-img.png'); ?>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/menu1-->
+
+    </div><!--/container-->
+
+    <!--Footer-->
+    <div class="footer-tab">
+        <div class="container">
+            <div class="tab-finner delivery-finner">
+                <button type="submit" name="Submit">
+                    Submit <span><img src="<?php echo $this->getViewFileUrl('images/arrow-right-2.png'); ?>"></span>
+                </button>
+                <div class="footertab-block">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="tab-fimg">
+                                <img src="<?php echo $this->getViewFileUrl('images/tab-footer-img.png'); ?>">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="tab-flink">
+                                <h4>Your subscription supports the local economy </h4>
+                                <ul class="list-unstyled">
+                                    <li><a href="#">You get your subscription</a></li>
+                                    <li><a href="#">You provide a solution to a girl</a></li>
+                                    <li><a href="#">You provide a job to a woman so she can support her family </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+
+    require(["jquery"], function ($) {
+        $(document).ready(function () {
+        $("ul.nav.nav-tabs li").removeClass("active");
+                $("ul.nav.nav-tabs li:eq(3)").addClass("active");
+                $(".page_no_change").text("3/4");
+                $(".page_title_change").text("Set delivery");
+        });
+    });
+</script>
