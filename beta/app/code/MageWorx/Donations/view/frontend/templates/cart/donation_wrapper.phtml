@@ -1,0 +1,34 @@
+<?php
+/**
+ * Copyright © 2017 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+<?php /**@var MageWorx\Donations\Block\Cart\Donation $block */ ?>
+
+<?php if ($block->showDonationCart()): ?>
+    <div id="block-donation-wrapper">
+        <div id="block-donation" class="block"
+             data-mage-init='{"collapsible":{"openedState": "active", "saveState": true}}'>
+            <div class="title" data-role="title">
+                <strong id="block-donation-heading" role="heading" aria-level="2">
+                    <?php echo __('Donation') ?>
+                </strong>
+            </div>
+            <div id="block-donation-summary" data-bind="scope:'mageworx-donation-form-container'" class="content"
+                 data-role="content" aria-labelledby="block-donation-heading">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <script type="text/x-magento-init">
+                    {
+                        "#block-donation": {
+                            "Magento_Ui/js/core/app": <?php
+                    echo $block->getJsLayout(); ?>
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+
+
+<?php endif; ?>

@@ -1,0 +1,33 @@
+<?php
+echo "a";
+use Magento\Framework\App\Bootstrap;
+//require __DIR__ . '/app/bootstrap.php';
+//$bootstrap = Bootstrap::create(BP, $_SERVER);
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+//$obj = $bootstrap->getObjectManager();
+$state = $objectManager->get('Magento\Framework\App\State');
+//$state->setAreaCode('frontend');
+
+$productArray = array("6");
+//Instance of object manager
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+foreach($productArray as $key=>$productId)
+{    
+$product = $objectManager->create('Magento\Catalog\Model\Product')->load($productId);
+$productRepository = $objectManager->create('Magento\Catalog\Api\ProductRepositoryInterface');
+$existingMediaGalleryEntries = $product->getMediaGalleryEntries();
+foreach ($existingMediaGalleryEntries as $key => $entry)
+{
+    unset($existingMediaGalleryEntries[$key]);
+}
+$product->setMediaGalleryEntries($existingMediaGalleryEntries);
+$productRepository->save($product);
+
+echo "Product Image has been deleted for".$productId."</br>";
+
+}
+echo "Yahooooo";
+
+?>
+

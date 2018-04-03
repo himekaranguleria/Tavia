@@ -1,0 +1,8 @@
+{
+  "name": "mageworx/module-donationsmeta",
+  "version": "1.2.0",
+  "type": "metapackage",
+  "require": {
+    "mageworx/module-donations": "1.2.0"
+  }
+}

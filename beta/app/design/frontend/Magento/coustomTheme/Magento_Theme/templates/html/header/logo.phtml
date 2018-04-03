@@ -1,0 +1,42 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @var \Magento\Theme\Block\Html\Header\Logo $block
+ */
+?>
+<div class="navbar-header">
+    <button id="headerbtn" class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="icon-bar"><img src="{{media url="wysiwyg/new_1.png"}}" alt="" /></span> 
+        <span class="icon-bar"><img src="{{media url="wysiwyg/new_3.png"}}" alt="" /></span>
+        <span class="icon-bar"><img src="{{media url="wysiwyg/new_2.png"}}" alt="" /></span> 
+    </button> 
+    <!--<a class="navbar-brand" href="/beta/"><img src="{{media url="wysiwyg/tavia-logo_navy.png"}}" alt="My Tavia" width="105" height="57" /></a>-->
+
+
+    <?php $storeName = $block->getThemeName() ? $block->getThemeName() : $block->getLogoAlt(); ?>
+<!--span data-action="toggle-nav" class="action nav-toggle"><span><?php /* @escapeNotVerified */ //echo __('Toggle Nav')  ?></span></span>-->
+    <?php if ($block->isHomePage()): ?>
+        <a  class="navbar-brand"  href="<?php echo $block->getUrl(''); ?>" title="<?php /* @escapeNotVerified */ echo $storeName ?>">
+        <?php else: ?>
+            <a  class="navbar-brand"  href="<?php echo $block->getUrl(''); ?>" title="<?php /* @escapeNotVerified */ echo $storeName ?>">
+            <?php endif ?>
+            <img src="<?php /* @escapeNotVerified */ echo $block->getLogoSrc() ?>"
+                 alt="<?php /* @escapeNotVerified */ echo $block->getLogoAlt() ?>"
+                 <?php // echo $block->getLogoWidth() ? 'width="' . $block->getLogoWidth() . '"' : ''  ?>
+                 <?php // echo $block->getLogoHeight() ? 'height="' . $block->getLogoHeight() . '"' : '' ?>
+                 <?php echo $block->getLogoWidth() ? 'width="105"' : '' ?>
+                 <?php echo $block->getLogoHeight() ? 'height="57"' : '' ?>
+                 />
+                 <?php if ($block->isHomePage()): ?>
+            </a>
+        <?php else: ?>
+        </a>
+    <?php endif ?>
+    <h6 class="logo-content">We&rsquo;re on a mission to keep girls in school around the world</h6>
+</div>

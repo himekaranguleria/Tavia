@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body/>
+	<referenceBlock name="page.main.title" display="false"/>
+	<referenceContainer name="content.bottom">
+			<!--container name="slider.panel" label="SliderPanel" htmlTag="div" htmlClass="slider-secton" before="featured.brand.panel">
+				<container name="slider.container" htmlClass="container clearfix" htmlTag="div">
+					<container name="owl.slider.panel" htmlClass="owl-carousel owl-theme" htmlTag="div">
+						<block class="Magento\Cms\Block\Block" name="home-slider">
+							<arguments>
+								<argument name="block_id" xsi:type="string">home_slider</argument>
+							</arguments>
+						</block>
+					</container>
+				</container>
+			</container>
+			
+			<container name="featured.brand.panel" label="FeaturedBrandPanel" htmlTag="div" htmlClass="featured-section" before="main.content">
+						<block class="Magento\Cms\Block\Block" name="featured-brands">
+							<arguments>
+								<argument name="block_id" xsi:type="string">featured_brands</argument>
+							</arguments>
+						</block>
+			</container>
+			
+			<container name="purchase.panel" label="PurchasePanel" htmlTag="div" htmlClass="purchase-section featured-section" before="instagram.panel">
+				<container name="purchase.container" htmlClass="container" htmlTag="div">
+						<block class="Magento\Cms\Block\Block" name="purchase-section">
+							<arguments>
+								<argument name="block_id" xsi:type="string">purchase_section</argument>
+							</arguments>
+						</block>
+				</container>
+			</container-->
+			
+			
+			<container name="instagram.panel" label="InstagramPanel" htmlTag="div" htmlClass="instagram-section clearfix" after="purchase.panel">
+				<block class="Magento\Framework\View\Element\Template" name="instagram-posts" template="Magento_Cms::instagram.phtml"/>			
+			</container>
+			
+	</referenceContainer>
+</page>

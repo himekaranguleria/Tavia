@@ -1,0 +1,540 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$checkoutSession = $objectManager->get('\Magento\Checkout\Model\Session');
+$checkoutSession->setTempons(0);
+$checkoutSession->setPads(0);
+$checkoutSession->setLiners(0);
+$checkoutSession->setTotal(0);
+?>
+<div class="container">  
+    <div id="menu1" class="tab-pane fade in active">
+        <div class="product-details">
+            <div class="product-header">
+                <h2>Tell us how many products you use each day of your period</h2>
+                <h6>So we can recommend a box size that is best for your cycle</h6>
+            </div>
+            <div class="row exceedalert" style="display:none">
+                <div class="alert alert-danger">You can not add more then 50 items for a box.<a href="javascript:;" id="reset_all">Reset</a></div>
+            </div>
+            <div class="table-responsive responsive-none">          
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="product-list">Product</th>
+                            <th>Day 1</th>
+                            <th>Day 2</th>
+                            <th>Day 3</th>
+                            <th>Day 4</th>
+                            <th>Day 5</th>
+                            <th>Day 6</th>
+                            <th>Day 7</th>
+                            <th class="total-block">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="t_section">
+                            <td class="title-block">
+                                <span><img src="<?php echo $this->getViewFileUrl('images/product-img-1.png'); ?>"></span> Tampons
+                            </td>
+                            <td class="plus_minus">
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item t_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus">
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item t_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus">
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item t_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus"> 
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item t_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus"> 
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item t_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus">
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item t_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus"> 
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item t_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="total-value t_section_sum_text">0</td>
+                        </tr>
+                        <tr class="p_section">
+                            <td class="title-block">
+                                <span><img src="<?php echo $this->getViewFileUrl('images/product-img-2.png'); ?>"></span> Pads
+                            </td>
+                            <td class="plus_minus">
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item p_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus">
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item p_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus">
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item p_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus"> 
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item p_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus"> 
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item p_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus">
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item p_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus"> 
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item p_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="total-value p_section_sum_text">0</td>
+                        </tr>
+                        <tr  class="l_section">
+                            <td class="title-block">
+                                <span><img src="<?php echo $this->getViewFileUrl('images/product-img-3.png'); ?>"></span> Liners
+                            </td>
+                            <td class="plus_minus">
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item l_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus">
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item l_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus">
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item l_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus"> 
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item l_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus"> 
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item l_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus">
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item l_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus"> 
+                                <a class="incr-btn" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item l_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="total-value l_section_sum_text">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            <div class="table-responsive responsive-show">          
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="product-list">Product</th>
+                            <th class="title-block">
+                                <span><img src="<?php echo $this->getViewFileUrl('images/product-img-1.png'); ?>"></span> Tampons
+                            </th>
+                            <th class="title-block">
+                                <span><img src="<?php echo $this->getViewFileUrl('images/product-img-2.png'); ?>"></span> Pads
+                            </th>
+                            <th class="title-block">
+                                <span><img src="<?php echo $this->getViewFileUrl('images/product-img-3.png'); ?>"></span> Liners
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="t_section">
+                            <td>Day 1</td>
+                            <td class="plus_minus t_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m " data-id="t_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus p_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m " data-id="p_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus l_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m" data-id="l_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                        </tr>
+                        <tr class="p_section">
+
+                            <td>Day 2</td>
+                            <td class="plus_minus t_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m " data-id="t_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus p_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m " data-id="p_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus l_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m" data-id="l_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                        </tr>
+                        <tr  class="l_section">
+                            <td>Day 3</td>
+                            <td class="plus_minus t_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m " data-id="t_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus p_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m " data-id="p_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus l_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m" data-id="l_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                        </tr>
+                        <tr  class="l_section">
+                            <td>Day 4</td>
+                            <td class="plus_minus t_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m " data-id="t_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus p_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m " data-id="p_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus l_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m" data-id="l_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                        </tr>
+                        <tr  class="l_section">
+                            <td>Day 5</td>
+                            <td class="plus_minus t_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m " data-id="t_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus p_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m " data-id="p_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus l_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m" data-id="l_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                        </tr>
+                        <tr  class="l_section">
+                            <td>Day 6</td>
+                            <td class="plus_minus t_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m " data-id="t_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus p_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m " data-id="p_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus l_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m" data-id="l_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                        </tr>
+                        <tr  class="l_section">
+                            <td>Day 7</td>
+                            <td class="plus_minus t_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m " data-id="t_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus p_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m " data-id="p_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                            <td class="plus_minus l_item-m">
+                                <a class="incr-btn-m" data-action="decrease" href="javascript:;">–</a>
+                                <input class="s_item-m" data-id="l_item" data-max=""  type="text" name="quantity" value="0"/>
+                                <a class="incr-btn-m" data-action="increase" href="javascript:;">&plus;</a>
+                            </td>
+                        </tr>
+                        <tr  class="l_section">
+                            <td class="total-block">Total</td>
+                            <td class="total-value t_item_sum_text">0</td>
+                            <td class="total-value p_item_sum_text">0</td>
+                            <td class="total-value l_item_sum_text">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+        </div>
+    </div><!--/menu1-->
+
+</div><!--/container-->
+
+<!--Footer-->
+<div class="footer-tab">
+    <div class="container">
+        <div class="tab-finner">
+            <form name="page1" action="<?= $block->getUrl('periodkit.html') ?>" method="get">
+                <input type="hidden" name="tempons_sum" class="t_section_sum_val t_item_sum_val section_total" value="0">
+                <input type="hidden" name="pads_sum" class="p_section_sum_val p_item_sum_val section_total" value="0">
+                <input type="hidden" name="liners_sum" class="l_section_sum_val l_item_sum_val section_total" value="0">
+                <input type="hidden" name="total_sum" class="section_total_sum" value="21">
+                <button type="submit" name="Submit" class="btn-sbmt-days">
+                    <i class="fa fa-refresh fa-spin loadericon" style="display: none"></i>  Submit <span><img src="<?php echo $this->getViewFileUrl('images/arrow-right-2.png'); ?>"></span>
+                </button>
+            </form>
+            <div class="footertab-block">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="tab-fimg">
+                            <img src="<?php echo $this->getViewFileUrl('images/tab-footer-img.png'); ?>">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="tab-flink">
+                            <h4>Your subscription supports the local economy </h4>
+                            <ul class="list-unstyled">
+                                <li><a href="javascript:;">You get your subscription</a></li>
+                                <li><a href="javascript:;">You provide a solution to a girl</a></li>
+                                <li><a href="javascript:;">You provide a job to a woman so she can support her family </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    require(["jquery"], function ($) {
+        $(document).ready(function () {
+            $(".btn-sbmt-days").click(function (e) {
+                e.preventDefault();
+                var customurl = "<?php echo $this->getUrl() . 'tavia/index/display/' ?>";
+                var tempons_sum = $(".t_section_sum_val").val();
+                var pads_sum = $(".p_section_sum_val").val();
+                var liners_sum = $(".l_section_sum_val").val();
+                var total_sum = $(".section_total_sum").val();
+                if (total_sum > 50) {
+                    $(".exceedalert").show();
+                } else {
+                    $(".loadericon").show();
+                    $.ajax({
+                        url: customurl,
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            tempons_sum: tempons_sum,
+                            pads_sum: pads_sum,
+                            liners_sum: liners_sum,
+                            total_sum: total_sum
+                        },
+                        complete: function (response) {
+                            window.location.href = "<?php echo $block->getBaseUrl(); ?>periodkit.html/";
+                        },
+                        error: function (xhr, status, errorThrown) {
+                            console.log('Error happens. Try again.');
+                        }
+                    });
+                }
+
+            });
+
+
+
+
+            $(document).on('keydown', '.s_item,.s_item-m', function (e) {
+                if ((e.which >= 48 && e.which <= 57) || (e.which >=
+                        96 && e.which <= 105) || (e.which == 8) || (e.which == 46)) {
+                    return e.which;
+                } else {
+                    return false;
+                }
+            });
+
+
+        }); //document.ready End. 
+        function tempons_sum(tr_class) {
+            var sum = 0;
+            var sumcat = 0;
+            $.each($("tr." + tr_class + " td.plus_minus .s_item"), function (key, value) {
+                sum += +$(value).val();
+            });
+//            console.log("." + tr_class + "_sum_text");
+            $("." + tr_class + "_sum_val").val(sum);
+            $("." + tr_class + "_sum_text").text(sum);
+            $(".section_total").each(function () {
+                sumcat += +$(this).val();
+            });
+            if (sumcat > 50) {
+                $(".exceedalert").show();
+            } else {
+                $(".exceedalert").hide();
+            }
+            console.log(sumcat);
+            $(".section_total_sum").val(sumcat);
+        }
+        function tempons_sum_m(tr_class) {
+//            alert(tr_class);
+            var sum = 0;
+            var sumcat = 0;
+            $.each($("td." + tr_class + "-m input.s_item-m"), function (key, value) {
+//                console.log(key);
+//                console.log(value);
+                sum += +$(value).val();
+            });
+//            console.log("." + tr_class + "_sum_text");
+            $("." + tr_class + "_sum_val").val(sum);
+            $("." + tr_class + "_sum_text").text(sum);
+            $(".section_total").each(function () {
+                sumcat += +$(this).val();
+            });
+            $(".section_total_sum").val(sumcat);
+            if (sumcat > 50) {
+                $(".exceedalert").show();
+            } else {
+                $(".exceedalert").hide();
+            }
+        }
+
+        (function ($) {
+            $(document).ready(function () {
+//                $(".container-fluid").hide();
+                $(".tab-header").show();
+
+                //page 1 section plus minus code
+                $(".incr-btn").on("click", function (e) {
+                    var ttlsum = $('.section_total_sum').val();
+//                    console.log(ttlsum);
+
+                    var $button = $(this);
+                    var oldValue = $button.parent().find('.s_item').val();
+                    $button.parent().find('.incr-btn[data-action="decrease"]').removeClass('inactive');
+                    if ($button.data('action') == "increase") {
+                        if (ttlsum == 50) {
+                            $(".exceedalert").show();
+                            var newVal = parseFloat(oldValue);
+                        } else {
+                            $(".exceedalert").hide();
+                            var newVal = parseFloat(oldValue) + 1;
+                        }
+                    } else {
+                        $(".exceedalert").hide();
+                        if (oldValue > 0) {
+                            var newVal = parseFloat(oldValue) - 1;
+                        } else {
+                            newVal = 0;
+                            $button.addClass('inactive');
+                        }
+                    }
+                    $button.parent().find('.s_item').val(newVal);
+                    tempons_sum($button.parent().parent().attr("class"))
+                    e.preventDefault();
+
+                });
+                //page 1 section plus minus code for mobile
+                $(".incr-btn-m").on("click", function (e) {
+                    var ttlsum = $('.section_total_sum').val();
+//                    console.log(ttlsum);
+                    var $button = $(this);
+                    var oldValue = $button.parent().find('.s_item-m').val();
+                    $button.parent().find('.incr-btn-m[data-action="decrease"]').removeClass('inactive');
+                    if ($button.data('action') == "increase") {
+                        if (ttlsum == 50) {
+                            $(".exceedalert").show();
+                            var newVal = parseFloat(oldValue);
+                        } else {
+                            $(".exceedalert").hide();
+                            var newVal = parseFloat(oldValue) + 1;
+                        }
+                    } else {
+                        $(".exceedalert").hide();
+                        if (oldValue > 0) {
+                            var newVal = parseFloat(oldValue) - 1;
+                        } else {
+                            newVal = 0;
+                            $button.addClass('inactive');
+                        }
+                    }
+                    $button.parent().find('.s_item-m').val(newVal);
+//                    console.log($button.siblings("input.s_item-m").attr("data-id"));
+                    tempons_sum_m($button.siblings("input.s_item-m").attr("data-id"));
+                    e.preventDefault();
+
+                });
+                // page 1 getting values on change of tempons
+                $(document).on("change", ".s_item", function () {
+                    tempons_sum($(this).parent().parent().attr("class"));
+//                     
+                });
+                $(document).on("change", ".s_item-m", function () {
+                    tempons_sum_m($(this).attr("data-id"));
+//                     
+                });
+                $(document).on("click", "#reset_all", function () {
+                    $(".s_item").val(0);
+                    $(".total-value").text(0);
+                    $(".section_total").val(0);
+                    $(".section_total_sum").val(0);
+                    $(".exceedalert").hide();
+//                     
+                });
+            });
+        }(jQuery));
+    })
+            ; //Jquery box End.
+
+</script>

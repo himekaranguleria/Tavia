@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2017 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="MageWorx_Donations::config_donations" title="Donations (by MageWorx)" sortOrder="70"/>
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Magento_Sales::sales">
+                    <resource id="MageWorx_Donations::donations_wrapper" title="MageWorx Donations" sortOrder="50">
+                        <resource id="MageWorx_Donations::statistics" title="MageWorx Donations" sortOrder="40"/>
+                        <resource id="MageWorx_Donations::charity" title="MageWorx Donations" sortOrder="40"/>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

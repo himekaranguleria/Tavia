@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Narvar Connect Admin System Configuration
+ *
+ * @category    Narvar
+ * @package     Narvar_Connect
+ * @version     0.1.1
+ * @author      premkumarsankar premkumar.sankar@aspiresys.com
+ * @copyright   Copyright (c) 2012-2017 Narvar Inc
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="narvar" translate="label" sortOrder="100">
+            <label>Narvar Connect</label>
+        </tab>
+        <section id="narvar_connect" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Narvar Connect Configuration</label>
+            <tab>narvar</tab>
+            <resource>Narvar_Connect::config</resource>
+            <group id="account" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Narvar Connect Configuration</label>              
+                <field id="narvar_api_endpoint" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Narvar API Endpoint</label>
+                    <validate>required-entry validate-url</validate>
+                    <comment>Narvar API Endpoint Cofigured Here</comment>
+                    
+                </field>               
+                <field id="narvar_acc_id" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Narvar Account ID </label>
+                    <validate>required-entry</validate>
+                    <comment>Narvar Account ID Shared By Narvar</comment>
+                </field> 
+               <field id="narvar_auth_token" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Narvar Auth Token</label>
+                    <validate>required-entry</validate>
+                    <comment>Narvar Auth Token Shared By Narvar</comment>
+                </field>                              
+            </group>
+            <group id="batch" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Batch Process Configuration</label>
+                <field id="bulk_push_frequency" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Frequency of Bulk Failure Push</label>
+                    <source_model>Narvar\Connect\Model\System\Config\Source\Batch\Frequency</source_model>
+                    <validate>required-entry</validate>
+                    <comment>Frequency of bulk failure push to Narvar</comment>
+                </field>  
+                <field id="first_push_start_time" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Time for First Batch Process</label>
+                    <source_model>Narvar\Connect\Model\System\Config\Source\Batch\Time</source_model>
+                    <validate>required-entry</validate>
+                    <comment>Time for First Batch Process</comment>
+                </field>  
+                <field id="audit_cleanup_interval" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Audit Clean Up Interval</label>
+                    <source_model>Narvar\Connect\Model\System\Config\Source\Batch\Audit\Interval</source_model>
+                    <validate>required-entry</validate>
+                    <comment>Audit Clean Up Interval</comment>
+                </field>  
+            </group>
+            <group id="return" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Order Returns Configuration</label>
+                <field id="return_email" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Email - Return Request</label>
+                    <validate>required-entry validate-email</validate>
+                    <comment>Return Request Email</comment>
+                </field>   
+                <field id="auth_key" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Return Authentication Key For Narvar</label>
+                    <validate>required-entry</validate>
+                    <comment>Return Authentication Key For Narvar</comment>
+                </field>   
+                <field id="auth_key_encrypt" translate="label" type="hidden" sortOrder="30" showInDefault="0" showInWebsite="0" showInStore="0">             
+                </field> 
+                <field id="auth_token" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Return Authentication Token For Narvar</label>
+                    <frontend_model>Narvar\Connect\Block\Adminhtml\System\Config\Form\Renderer\Auth\Token</frontend_model>
+                    <comment>Return Authentication Token For Narvar</comment>
+                </field>
+            </group>
+            <group id="custom_attributes" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Custom Attributes</label>
+                <field id="notification_pref" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Notification Preference</label>
+                    <source_model>Narvar\Connect\Model\System\Config\Source\Attributes\Customer</source_model>                  
+                    <comment>Notification Preference</comment>
+                </field>
+               <field id="is_backordered" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Is back Ordered</label>
+                    <source_model>Narvar\Connect\Model\System\Config\Source\Attributes\Boolean</source_model>                  
+                    <comment>Is back Ordered</comment>
+                </field>
+                <field id="is_shoprunner_eligible" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Is Shop Runner Eligible</label>
+                    <source_model>Narvar\Connect\Model\System\Config\Source\Attributes\Boolean</source_model>                  
+                    <comment>Is Shop Runner Eligible</comment>
+                </field>
+                <field id="final_sale_date" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Final Sale Date</label>
+                    <source_model>Narvar\Connect\Model\System\Config\Source\Attributes\Date</source_model>                  
+                    <comment>Final Sale Date</comment>
+                </field>
+                <field id="is_final_sale" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Is Final Sale</label>
+                    <source_model>Narvar\Connect\Model\System\Config\Source\Attributes\Boolean</source_model>                  
+                    <comment>Is Final Sale</comment>
+                </field>
+                <field id="item_promise_date" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Item Promise Date</label>
+                    <source_model>Narvar\Connect\Model\System\Config\Source\Attributes\Date</source_model>                  
+                    <comment>Item Promise Date</comment>
+                </field>                
+                <field id="dimuom" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Dimension - Unit of Measurement</label>
+                    <source_model>Narvar\Connect\Model\System\Config\Source\Uom\Dimension</source_model>                  
+                    <comment>Dimension - Unit of Measurement</comment>
+                </field>
+                <field id="length" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Dimension - Length</label>
+                    <source_model>Narvar\Connect\Model\System\Config\Source\Attributes</source_model>                  
+                    <comment>Dimension - Length</comment>
+                </field>
+                <field id="width" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Dimension - Width</label>
+                    <source_model>Narvar\Connect\Model\System\Config\Source\Attributes</source_model>                  
+                    <comment>Dimension - Width</comment>
+                </field>
+                <field id="height" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Dimension - Height</label>
+                    <source_model>Narvar\Connect\Model\System\Config\Source\Attributes</source_model>                  
+                    <comment>Dimension - Height</comment>
+                </field>
+                <field id="weight_uom" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Weight - Unit Of Measurement</label>
+                    <source_model>Narvar\Connect\Model\System\Config\Source\Uom\Weight</source_model>                  
+                    <comment>Weight - Unit Of Measurement</comment>
+                </field>
+                <field id="ship_source" translate="label" type="select" sortOrder="120" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Ship Source</label>
+                    <source_model>Narvar\Connect\Model\System\Config\Source\Attributes</source_model>                  
+                    <comment>Shipment Source</comment>
+                </field>
+                <field id="additional_attrs" translate="label" type="multiselect" sortOrder="130" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Additional Custom Attributes</label>
+                    <source_model>Narvar\Connect\Model\System\Config\Source\Attributes</source_model>                  
+                    <comment>Additional Custom Attributes</comment>
+                </field>
+            </group>
+            <group id="activation" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Module Activation Information</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Module Activation Status</label>
+                    <frontend_model>Narvar\Connect\Block\Adminhtml\System\Config\Form\Renderer\Disable</frontend_model>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                    <comment>Module Activation Status</comment>
+                </field>
+                <field id="activation_date" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Module Activated Date</label>
+                    <frontend_model>Narvar\Connect\Block\Adminhtml\System\Config\Form\Renderer\Activation\Date</frontend_model>
+                    <comment>Module Activated Date</comment>
+                    <depends>
+                        <field id="narvar_connect/general/enable">1</field>
+                    </depends>
+                </field>               
+            </group>       
+        </section>            
+    </system>
+</config>

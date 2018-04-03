@@ -1,0 +1,51 @@
+<!-- ko if: isShowDonationCart() -->
+<div id="mageworx-donation-container" data-bind="blockLoader: isLoading">
+
+    <!-- ko if: isDisplayTitle() -->
+    <div class="title" data-role="title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">
+        <strong role="heading"></span>
+            <span data-bind="i18n: 'Donation'"></span>
+        </strong>
+    </div>
+    <!--/ko-->
+    <!-- ko if: isDisplayBlockDefaultDonation() -->
+    <div class="default_description_donation">
+        <span data-bind="text: getDefaultDonation()"></span>
+    </div>
+    <!--/ko-->
+    <div>
+        <form id="mageworx-donation-form" class="form">
+            <div data-bind="visible: showButtonAdd()">
+                <fieldset class="fieldset">
+                    <!-- ko foreach: getRegion('mageworx-donation-form-fields') -->
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                    <!--/ko-->
+                </fieldset>
+                <!-- ko if: isActivateMinimumDonation() -->
+                <div class="minimum_donation">
+                    <span data-bind="i18n: 'Minimum donation'"></span>
+                    <span data-bind="text: getMinimumDonation()"></span>
+                </div>
+                <!-- /ko -->
+                <button type="button" data-bind="click: onSubmitAdd" class="action">
+                    <span data-bind="i18n: 'Add Donation'"></span>
+                </button>
+            </div>
+
+            <div data-bind="visible: showButtonDelete()">
+                <div class="title" data-role="title" role="tab" aria-selected="false" aria-expanded="false"
+                     tabindex="0">
+                    <strong role="heading">
+                        <span data-bind="i18n: 'Donation'"></span>
+                        <span data-bind="text: getValueDonation()"></span>
+                        <span data-bind="i18n: 'was added to your order total'"></span>
+                    </strong>
+                </div>
+                <button type="button" data-bind="click: onSubmitDelete" class="action">
+                    <span data-bind="i18n: 'Remove Donation'"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- /ko -->

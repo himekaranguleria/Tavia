@@ -1,0 +1,18 @@
+<!--
+/**
+ * Copyright © 2017 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+
+<!-- ko if: isDisplayed() -->
+<tr class="totals-mageworx-donation-summary"
+    data-bind="mageInit: {'toggleAdvanced':{'selectorsToggleClass': 'shown', 'baseToggleClass': 'expanded', 'toggleContainers': ''}}">
+    <th data-bind="text: title" class="mark" scope="row"></th>
+    <td data-bind="attr: {'data-th': title }" class="amount">
+                <span class="price"
+                      data-bind="text: getValue()"></span>
+    </td>
+</tr>
+
+<!-- /ko -->

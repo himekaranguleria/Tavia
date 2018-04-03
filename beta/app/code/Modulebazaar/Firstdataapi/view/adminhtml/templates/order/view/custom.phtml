@@ -1,0 +1,62 @@
+<?php $orderId = $block->getRequest()->getParam('order_id'); ?>
+<?php $subscription = $block->getSubscriptionByOrder($orderId); ?>
+<?php $_orders = $block->getOrderBySubscription($orderId); ?>
+<?php if ($_orders && $_orders->getSize()>0): ?>
+   <section class="admin__page-section order-view-subscription-information" style="margin-bottom:20px;">
+		<div class="admin__page-section-title">
+			<div style="float:left;">
+				<span class="title" style="font-size: 28px;">Subscription Id: <b><?php echo $subscription->getId(); ?></b></span>
+			</div>
+			<div style="float:right;">
+				<?php if ($subscription->getStatus()==1): ?>
+					<a href="<?php /* @escapeNotVerified */ echo $this->getUrl('modulebazaar_firstdataapi/subscriptiontavia/stop', ['subscription_id' => $subscription->getId()]) ?>" class="action view">
+						<span><?php /* @escapeNotVerified */ echo __('Stop This Subscription') ?></span>
+					</a>
+				<?php endif ?>
+			</div>
+			<div style="float:none;clear:both;"></div>
+		</div>
+		
+		<div><span>Status: <?php echo ($subscription->getStatus()==1?'<b style="color:Green;">Active</b>':'<b style="color:Red;">In Active</b>');?></span></div>
+		
+	</section>
+    <div class="admin__table-wrapper">
+		<div class="admin__page-section-title">
+			<span class="title"><?php /* @escapeNotVerified */ echo __('Orders') ?></span>
+		</div>
+        <table class="data-table admin__table-primary edit-order-table" id="my-orders-table">		
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?php /* @escapeNotVerified */ echo __('Order #') ?></th>
+                    <th scope="col" class="col date"><?php /* @escapeNotVerified */ echo __('Date') ?></th>
+                    <?php /* @noEscape */ echo $block->getChildHtml('extra.column.header');?>
+                    <th scope="col" class="col shipping"><?php /* @escapeNotVerified */ echo __('Ship To') ?></th>
+                    <th scope="col" class="col total"><?php /* @escapeNotVerified */ echo __('Order Total') ?></th>
+                    <th scope="col" class="col status"><?php /* @escapeNotVerified */ echo __('Status') ?></th>
+                    <th scope="col" class="col actions">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($_orders as $_order): ?>
+                    <tr>
+                        <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $_order->getRealOrderId() ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Date')) ?>" class="col date"><?php /* @escapeNotVerified */ echo $block->formatDate($_order->getCreatedAt()) ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Ship To')) ?>" class="col shipping"><?php echo $_order->getShippingAddress() ? $block->escapeHtml($_order->getShippingAddress()->getName()) : '&nbsp;' ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Order Total')) ?>" class="col total"><?php /* @escapeNotVerified */ echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Status')) ?>" class="col status"><?php /* @escapeNotVerified */ echo $_order->getStatusLabel() ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                            <a href="<?php /* @escapeNotVerified */ echo $this->getUrl('sales/order/view', ['order_id' => $_order->getId()]) ?>" class="action view">
+                                <span><?php /* @escapeNotVerified */ echo __('View') ?></span>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+	<div class="admin__page-section-title" style="border: none;">
+		<span class="title" style="font-size: 28px;"><?php /* @escapeNotVerified */ echo __('Subscription Detail:') ?></span>
+	</div>
+<?php else: ?>
+    <!--div class="message info empty"><span><?php /* @escapeNotVerified */ echo __('You have placed no orders.'); ?></span></div-->
+<?php endif ?>

@@ -1,0 +1,130 @@
+﻿<?xml version="1.0"?>
+<!--// with logo called from block-->
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="default_head_blocks"/>
+    <body>
+        <referenceBlock name="header.panel.wrapper" remove="true"/>
+        <!--//  <referenceBlock name="header.container" remove="true" />-->
+        <referenceBlock name="navigation.sections" remove="true"/>
+        <referenceBlock name="footer_links" remove="true"/>
+        <referenceBlock name="breadcrumbs" remove="true"/>
+        <referenceContainer name="copyright" remove="true" /> 
+        <move element="logo.box" destination="middle.bar.container" before="-" />
+        <move element="logo" destination="logo.box" after="-" />
+        <!--<referenceBlock name="advanced-search-link" remove="true"/>-->
+        <!--<referenceBlock name="report.bugs" remove="true"/>-->
+        <!--        	<move element="logo.box" destination="middle.bar.container" before="social.header.links" />
+        <move element="logo" destination="logo.box" after="-" />
+        <move element="minicart" destination="right.menu.bar" before="right-menu-bar" />
+        <move element="top.search" destination="social.header.links" after="social-header-links" />-->
+        <move element="store.menu" destination="navigation.panel" after="main-navigation" />
+        <move element="form.subscribe" destination="newsletter.panel" />
+        <move element="header.panel" destination="left.menu.list" />
+        <referenceBlock name="register-link" remove="true" />
+        <!--        <move element="copyright" destination="before.body.end" before="footer_script" />
+        <move element="breadcrumbs" destination="columns.top" before="page.main.title" />
+        <move element="authorization-link" destination="right.menu.list" after="right-menu-bar" />-->
+
+	
+	
+	
+        <!--        <referenceContainer name="after.body.start">
+            <container name="top.bar.panel" label="TopBar" htmlTag="div" htmlClass="top-bar">
+                <block class="Magento\Cms\Block\Block" name="top-bar">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">top_bar</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>-->
+		
+        <referenceContainer name="page.wrapper" >
+            <container name="main.header.panel" label="MainHeader" htmlTag="div" htmlClass="main-header" before="main.content">
+                <container name="middle.bar" label="MiddleBar" htmlTag="div" htmlClass="main-navigation">
+                    <container name="middle.bar.ul" label="MiddleBar.ul" htmlTag="ul">
+                        <container name="middle.bar.nav" label="MiddleBar.nav" htmlTag="nav" htmlClass="navbar navbar-default">
+                            <container name="middle.bar.container" htmlClass="container-fluid" htmlTag="div">
+                                <container name="middle.bar.row" label="MiddleBar-row" htmlTag="div" htmlClass="row">
+                                    <container name="logo.box.secton" label="LogoBox.section" htmlTag="div" htmlClass="col-md-4 col-sm-12">
+                                        <!--<container name="logo.box" label="LogoBox" htmlTag="div" htmlClass="">-->
+                                        <block class="Magento\Cms\Block\Block" name="main_navigation_logo">
+                                            <arguments>
+                                                <argument name="block_id" xsi:type="string">main_navigation_logo</argument>
+                                            </arguments>
+                                        </block>	
+                                        <!--</container>-->
+                                    </container>
+                                    <container name="right.menu.bar" label="RightMenuBar" htmlTag="div" htmlClass="col-md-8" after="logo.box">
+                                        <container name="right.menu.bar.child" label="RightMenuBar.child" htmlTag="div" htmlClass="collapse navbar-collapse" htmlid="bs-example-navbar-collapse-1">
+                                            <!--<container name="right.menu.list" label="RightMenuList" htmlTag="ul" htmlClass="nav navbar-nav navbar-right">-->
+                                            <block class="Magento\Cms\Block\Block" name="right-menu-bar">
+                                                <arguments>
+                                                    <argument name="block_id" xsi:type="string">main_navigation</argument>
+                                                </arguments>
+                                            </block>
+                                            <!--</container>-->
+                                            <container name="left.menu.list" label="LeftMenuList" htmlTag="ul" htmlClass="nav navbar-nav navbar-right second_nav">
+                                                <!--                                        <block class="Magento\Customer\Block\Account\AuthorizationLink" name="authorization-link"
+                                                template="account/link/authorization.phtml"/>-->
+                                            </container>
+                                        </container>
+                                    </container>
+                                </container>
+                            </container>
+                        </container>
+                    </container>
+                </container>
+                <container name="navigation.panel" label="NavigationPanel">
+                </container>
+            </container>
+			
+        </referenceContainer>
+	
+        <referenceContainer name="footer-container">
+            <container name="footer.inner.container" htmlClass="container clearfix" htmlTag="div">
+				
+                <container name="footer" as="footer" label="Page Footer" htmlTag="div" htmlClass="footer clearfix">
+                    <container name="footer-row" as="footerrow" label="Footer row" htmlTag="div" htmlClass="row">
+                    
+                        <container name="newsletter.panel" label="NewsletterPanel" htmlTag="div" htmlClass="newsletter col-sm-4 clearfix" before="footer">
+                        </container>
+                        
+                        <container name="footer-col1" as="footercol1" label="Footer col1" htmlTag="div" htmlClass="col-sm-4 col-xs-6">
+                            <container name="footer-col1-inner" as="footercol1-inner" label="Footer col1 inner" htmlTag="div" htmlClass="f_inner">
+                                <block class="Magento\Cms\Block\Block" name="footer-col-1">
+                                    <arguments>
+                                        <argument name="block_id" xsi:type="string">footer_col_1</argument>
+                                    </arguments>
+                                </block>
+                            </container>
+                        </container>
+                        
+                        <container name="footer-col2" as="footercol2" label="Footer col2" htmlTag="div" htmlClass="col-sm-4 col-xs-6">
+                            <container name="footer-col2-inner" as="footercol2-inner" label="Footer col2 inner" htmlTag="div" htmlClass="f_inner">
+                                <block class="Magento\Cms\Block\Block" name="footer-col-2">
+                                    <arguments>
+                                        <argument name="block_id" xsi:type="string">footer_col_2</argument>
+                                    </arguments>
+                                </block>
+                            </container>
+                        </container>
+                       
+                    </container>		
+                </container>
+            </container>
+        </referenceContainer>
+		
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Theme\Block\Html\Footer" name="footer_script" template="Magento_Theme::html/footer-script.phtml" />
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\FormKey" name="formkey"/>
+        </referenceContainer>
+    </body>
+</page>

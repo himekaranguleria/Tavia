@@ -1,0 +1,91 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>  
+<?php // echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('instagram_section')->toHtml();           ?>
+<?php /**
+ * Supply a user id and an access token
+ * Jelled explains how to obtain a user id and access token in the link provided
+ * @link http://jelled.com/instagram/access-token
+ */ ?>
+<h2 class="insta_title">Follow <a target="_blank" style="display:inline-block !important;" href="https://www.instagram.com/taviaco/">@TAVIACO</a> on Instagram</h2>
+<div class="insta_sec"><div class="insta-main"> <?php
+//bellatunno
+//        $userid = "407881237";
+//        $accessToken = "407881237.1677ed0.c0bc8aea68c44460b9668a3eb4d99e42";
+        $userid = "5994482125";
+        $accessToken = "5994482125.1677ed0.201b285315474fdbbc2b03ff79a773c5";
+
+// Get our data
+        function fetchData($url) {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+            $result = curl_exec($ch);
+            curl_close($ch);
+            return $result;
+        }
+
+        $result = fetchData("https://api.instagram.com/v1/users/{$userid}/media/recent/?access_token={$accessToken}");
+
+//        echo '<pre>';
+//        print_r($result);
+//        echo '</pre>';
+        $result = json_decode($result);
+        ?>
+        <?php $limit = 14; // Amount of images to show  ?>
+        <?php
+        $i = 0;
+        $count = 0;
+        ?>
+
+
+
+        <?php
+        if (@$result->data) {
+            foreach ($result->data as $post):
+//		echo "<pre>";			print_r($post); echo "</pre>";
+
+                if ($count % 7 == 0 && $count != 14 && $count != 0) {
+                    echo '</div><div class="insta-main">';
+                }
+                ?>
+                <?php if ($i < $limit): ?>
+                    <div class="column">
+                        <a target="_blank" href="<?php echo $post->link; ?>" class="image-hover">
+                            <img src="<?php echo $this->getBaseUrl(); ?>timthumb/timthumb.php?w=200&h=200&src=<?php echo $post->images->low_resolution->url ?>">
+                        </a>
+                    </div>
+                    <?php // echo "Comments", $post->comments->count  ?>  
+                    <?php $i ++; ?>
+                    <?php
+                endif;
+//                if ($count % 7 == 0) {
+//                    echo "</div>";
+//                } 
+                $count++;
+                ?>
+                <?php
+            endforeach;
+//            if ($count % 7 != 1)
+//                echo "</div>";
+        }
+        ?>
+
+    </div>
+</div>
+<section class="thanks-sec">
+    <div class="container">
+        <div class="thanks-block">
+            <div class="table-block">
+                <div class="table-inner">
+                    <h4>Thank you <img src="https://www.mytavia.com/beta/pub/media/wysiwyg/heart-img.png" width="146" height="155" /> for changing the world</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

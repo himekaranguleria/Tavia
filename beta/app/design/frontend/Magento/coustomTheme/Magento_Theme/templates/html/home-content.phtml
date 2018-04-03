@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>  
+<div class="slider-secton">
+  <div class="container clearfix">
+    <div class="owl-carousel owl-theme">
+      <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('home_slider')->toHtml();?>
+    </div>
+  </div>
+</div>
+<div class="featured-section">
+  <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('featured_brands')->toHtml();?>
+</div>

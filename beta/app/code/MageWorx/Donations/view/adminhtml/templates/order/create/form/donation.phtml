@@ -1,0 +1,146 @@
+<?php
+/**
+ * Copyright © 2017 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+
+<?php
+/** @var $block MageWorx\Donations\Block\Adminhtml\Order\Create\Form\Donation */
+if ($block->getIsEnableDonation()): ?>
+    <section class="admin__page-section mageworx-donation-section">
+        <div class="admin__page-section-title <?php
+        echo $block->getHeaderCssClass() ?>"
+             data-mage-init='{"collapsible":{"openedState": "active", "saveState": true}}'>
+            <span class="title block-donation-heading" role="heading" aria-level="2"><?php
+                echo $block->getHeaderText() ?></span>
+            <div class="actions"></div>
+        </div>
+        <div id="mageworx_donation_fields" class="admin__page-section-content" data-role="content"
+             aria-labelledby="block-donation-heading">
+            <div class="add_donation_block">
+                <input type="text" class="admin__control-text" id="donation_value" value="" name="donation_value"/>
+                <?php echo $block->getButtonHtml(__('Add Donation'), '', 'add_donation') ?>
+                 <div class="form_charity_block"><?php echo $block->getSelectFormHtml() ?></div>
+                <div id="charity_block_image"> </div>
+                <span id="charity_block_description"></span>
+            </div>
+            <div class="delete_donation_block">
+                <span data-bind="i18n: 'Donation'"></span>
+                <span id="value_donation"></span>
+                <span data-bind="i18n: 'was added to your order total'"></span>
+                <?php echo $block->getButtonHtml(__('Remove Donation'), '', 'delete_donation') ?>
+            </div>
+        </div>
+    </section>
+    <script>
+        window.isAddedDonation = <?php echo \Zend_Json::encode($block->isAddedDonation()); ?>;
+        window.charityData = <?php echo json_encode($block->getCharityData()); ?>;
+
+        require([
+            "jquery",
+            'Magento_Catalog/js/price-utils'
+        ], function ($, priceUtils) {
+
+            $(document).ready(function () {
+                if (window.isAddedDonation == false) {
+                    $('.add_donation_block').show();
+                    $('.delete_donation_block').hide();
+                } else {
+                    $('.add_donation_block').hide();
+                    $('.delete_donation_block').show();
+                }
+
+                /* default value span */
+                var span = document.getElementById('value_donation');
+                span.textContent = <?php echo \Zend_Json::encode($block->getValueDonation()); ?>;
+
+                /* default set value charity description and charite image */
+                var e = document.getElementById("donation_charity");
+
+                if (e !== null) {
+                    var elementValue = e.options[e.selectedIndex].value;
+                    var elemImg = document.createElement("img");
+
+                    for (key in window.charityData) {
+                        if (key == elementValue) {
+                            $("#charity_block_description").text(window.charityData[key]['description']);
+
+                            var path = window.charityData[key]['path'];
+                            if (path.trim() != '') {
+                                elemImg.setAttribute("src", path);
+                                elemImg.setAttribute("id", "charity_image");
+                                elemImg.setAttribute("height", "75");
+                                elemImg.setAttribute("width", "75");
+                                document.getElementById("charity_block_image").appendChild(elemImg);
+                            }
+                        }
+                    }
+                }
+
+                /* push button */
+                $('.add_donation').on('click', function () {
+                    var data = {};
+                    data['donation'] = document.getElementById('donation_value').value;
+
+                    var e = document.getElementById("donation_charity");
+                    if (e !== null){
+                        data['charity_id'] = e.options[e.selectedIndex].value;
+                    }
+
+                    order.loadArea(['mageworx_donation', 'shipping_method', 'totals', 'billing_method'], true, data);
+
+                    var priceFormat = '<?php echo json_encode($block->getBasePriceFormat()); ?>',
+                        jsObjPriceFormat = JSON.parse(priceFormat),
+                        price = priceUtils.formatPrice(data['donation'], jsObjPriceFormat);
+
+                    var span = document.getElementById('value_donation');
+                    span.textContent = price;
+
+                    $('.add_donation_block').hide();
+                    $('.delete_donation_block').show();
+
+                });
+
+                /* push button */
+                $('.delete_donation').on('click', function () {
+                    var data = {'delete_donation': 'true'};
+                    order.loadArea(['mageworx_donation', 'shipping_method', 'totals', 'billing_method'], true, data);
+
+                    var span = document.getElementById('value_donation');
+                    span.textContent = "";
+
+                    $('.delete_donation_block').hide();
+                    $('.add_donation_block').show();
+                });
+
+                $('#donation_charity').on('change', function () {
+                    var e = document.getElementById("donation_charity");
+                        value = e.options[e.selectedIndex].value;
+                        elemImg = document.createElement("img");
+
+                    for (key in window.charityData){
+                        if (key == value){
+                            $("#charity_block_description").text(window.charityData[key]['description']);
+
+                            /* delete old image */
+                            var node = document.getElementById("charity_block_image");
+                            while (node.firstChild) {
+                                node.removeChild(node.firstChild);
+                            }
+
+                            var path = window.charityData[key]['path'];
+                            if (path.trim() != ''){
+                                elemImg.setAttribute("src", path);
+                                elemImg.setAttribute("id", "charity_image");
+                                elemImg.setAttribute("height", "75");
+                                elemImg.setAttribute("width", "75");
+                                document.getElementById("charity_block_image").appendChild(elemImg);
+                            }
+                        }
+                    }
+                });
+            })
+        });
+    </script>
+<?php endif; ?>

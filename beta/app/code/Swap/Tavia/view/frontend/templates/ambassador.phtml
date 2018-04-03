@@ -1,0 +1,137 @@
+<?php
+echo $this->getLayout()
+        ->createBlock('Magento\Cms\Block\Block')
+        ->setBlockId('ambassador_section')
+        ->toHtml();
+?>
+
+
+
+<div class="contact_form">
+    <div class="container">
+        <form class="clearfix contact_form-inner"  action="" method="POST">
+
+            <h3>Apply to be an Ambassador today.</h3>
+            <p>Fill out the form below.</p>
+            <?php
+            if (isset($_POST['submit'])) {
+                $to = "ambassadors@mytavia.com,swap.guleria@gmail.com";
+                $emails = $_POST["email"];
+                if ($emails == "" || filter_var($emails, FILTER_VALIDATE_EMAIL) === false) {
+                    echo "<p style='color:Red; font-weight: bold; font-size: 15px;'>Please enter valid email id...</p>";
+                } else {
+                    $subject = "Become an Ambassador Request";
+                    $message = ' 
+                        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+                        <html>
+                            <head>
+                                <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+                            </head>
+                            <body style="margin: 0;
+                                  font-family: Tahoma, sans-serif;">
+                                <table width="100%" id="html"  style="background-color: #eee;
+                                       width: 100%;
+                                       height: 100%;
+                                       margin: 0 auto;" border="0" cellpadding="0"
+                                       cellspacing="0">
+                                    <tr>
+                                        <td align="center" valign="top">
+                                            <table width="650px" id="body" style="width: 500px;
+                                                   margin: 0 auto;
+                                                   font-size: 12px;
+                                                   color: #333333;
+                                                   background-color: #fff;
+                                                   border: 1px solid antiquewhite;
+                                                   text-valign: center;" border="0" cellpadding="0"
+                                                   cellspacing="20">
+                                                <tr>
+                                                    <td id="header" style="color: white;
+                                                        font-size: 1.2em;
+                                                        padding: 15px;
+                                                        background: #91b8d7;
+                                                        text-align: center;
+                                                        text-valign: center;
+                                                        font-weight: bold;
+                                                        margin-bottom: 30px;
+                                                        border-radius: 4px 4px 4px 4px;">Hello, &nbsp;<b> Tavia </b></td>
+                                                </tr>
+                                                <tr>
+                                                <div class="mail-box" style="
+                                                     width:350px;
+                                                     margin:auto;">
+
+                                                    <div class="mail-content" style="
+                                                         font-size:14px;
+                                                         padding:10px;">
+
+                                                         <p>   <b>First Name</b>: ' . $_POST["firstname"] . ' </p>
+                                                         <p>   <b>Last Name</b>: ' . $_POST["lastname"] . ' </p>
+                                                        <p>    <b>Email</b>: ' . $_POST["email"] . ' </p>
+                                                        <p>    <b>Subject</b>: Become an Ambassador Request  </p>
+                                                          
+                                                    </div>
+                                                </div><p>
+                                                    Sincerely,<br> Tavia.
+                                                </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="footer" style="background: #91b8d7;
+                                            color: #FFF;
+                                            border-radius: 4px 4px 4px 4px;
+                                            margin-top: 30px;
+                                            padding: 15px;
+                                            text-weight: bold;
+                                            text-align: center;
+                                            text-valign: center;">
+                                            <p>
+                                                Copyright &copy;
+                                                ' . date("Y") . ' 
+                                                by
+                                                Tavia 
+                                                . All Rights Reserved.<br />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </body>
+                        </html>
+                        ';
+                    $header = "From:admin@mytavia.com \r\n";
+                    $header .= "MIME-Version: 1.0\r\n";
+                    $header .= "Content-type: text/html\r\n";
+
+                    $retval = mail($to, $subject, $message, $header);
+
+                    if ($retval == true) {
+                        echo "<div class='message_cls' style='color: green; font-weight: bold; font-size: 15px;'>Message sent successfully...</div>";
+                    } else {
+                        echo "<div class='message_cls' style='color:Red; font-weight: bold; font-size: 15px;'>Message could not be sent...</div>";
+                    }
+                }
+            }
+            ?>
+            <span>
+                <input type="text" name="firstname" value="<?php if (isset($_POST['firstname'])) echo $_POST['firstname']; ?>" placeholder="First Name" required="required" > 
+            </span> 
+            <span>
+                <input type="text" name="lastname" value="<?php if (isset($_POST['lastname'])) echo $_POST['lastname']; ?>" placeholder="Last Name" required="required" > 
+            </span>
+            <span>
+                <input type="email" name="email"value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>" placeholder="E-mail Address " required="required" > 
+            </span> 
+
+            <!--    <div class="contect_ck">
+                                                <input type="checkbox" name="is_subscribed" title="Sign Up for Newsletter" value="1" id="is_subscribed" class="checkbox">
+                                                <label for="is_subscribed" class="label"><span>Sign Up for Newsletter</span></label>
+                                            </div>-->
+
+            <span class="cnt-submit">
+                <input type="submit" name="submit" value="Submit">
+            </span>
+
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2017 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mageworx_donations>
+            <main>
+                <show_donations_cart>0</show_donations_cart>
+                <show_charity_cart>0</show_charity_cart>
+                <minimum_donations>0</minimum_donations>
+                <show_donations_checkout>0</show_donations_checkout>
+                <donations_amount_placeholder>Enter your donation</donations_amount_placeholder>
+            </main>
+        </mageworx_donations>
+    </default>
+</config>

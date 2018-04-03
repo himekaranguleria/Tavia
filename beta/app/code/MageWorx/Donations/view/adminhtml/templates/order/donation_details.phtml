@@ -1,0 +1,33 @@
+<?php
+/**
+ * Copyright © 2017 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+/** @var MageWorx\Donations\Block\Adminhtml\Order\View\Info $block */
+?>
+
+<?php if ($donation = $block->getDonationDetails()): ?>
+    <br><br>
+    <div class="admin__page-section-title"><span class="title"><?php echo __('Donations') ?></span></div>
+    <div id="order-donation-details" class="admin__page-section-item order-payment-method">
+        <div class="admin__page-section-item-content">
+            <table>
+                <tr>
+                    <td>
+                        <strong><?php echo $block->escapeHtml($donation['donation_title']); ?></strong>
+                        <?php echo $block->escapeHtml($donation['donation_value']); ?>
+                    </td>
+                </tr>
+                 <?php if (!empty($donation['charity_value'])): ?>
+                    <tr>
+                        <td>
+                            <strong><?php echo $block->escapeHtml($donation['charity_title']); ?></strong>
+                            <?php echo $block->escapeHtml($donation['charity_value']); ?>
+                        </td>
+                    </tr>
+                 <?php endif; ?>
+            </table>
+        </div>
+    </div>
+<?php endif; ?>
