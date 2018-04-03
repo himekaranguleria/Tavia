@@ -1,0 +1,89 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * Top menu for store
+ *
+ * @var $block \Magento\Theme\Block\Html\Topmenu
+ */
+?>
+<?php $columnsLimit = $block->getColumnsLimit() ?: 0; ?>
+<?php $_menu = $block->getHtml('level-top', 'submenu', $columnsLimit) ?>
+<?php
+$cmsPage = \Magento\Framework\App\ObjectManager::getInstance()->get('\Magento\Cms\Model\Page');
+$urlInterface = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Framework\UrlInterface');
+$current_url = $urlInterface->getCurrentUrl();
+
+if (strpos($current_url, "tavia/index/index") || strpos($current_url, "periodkit.html")) {
+//if (strpos($current_url, "tavia/index/index") || strpos($current_url, "periodkit.html") || strpos($current_url, "checkout")) {
+// echo "ji";
+    echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('product-navigation')->toHtml();
+} else {
+//if (@$cmsPage->getIdentifier()) {
+    ?>
+<!--    <div class="main-navigation" data-action="navigation">
+        <ul>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid"> Brand and toggle get grouped for better mobile display 
+                    <div class="row">
+                        <?php
+                        /** @var \Magento\Framework\UrlInterface $urlInterface */
+                        echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('main_navigation_logo')->toHtml();
+// /* @escapeNotVerified */ echo $_menu; 
+                        ?>
+                        <div class="col-md-8"> Collect the nav links, forms, and other content for toggling 
+                            <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+
+                                <?php
+                                /** @var \Magento\Framework\UrlInterface $urlInterface */
+                                echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('main_navigation')->toHtml();
+// /* @escapeNotVerified */ echo $_menu; 
+                                ?>
+                                <ul class="nav navbar-nav navbar-right second_nav"><?php
+                                    $om = \Magento\Framework\App\ObjectManager::getInstance();
+                                    $customerSession = $om->get('Magento\Customer\Model\Session');
+                                    if ($customerSession->isLoggedIn()) {
+                                        ?> 
+                                        <li class="login-btn"><a href="/beta/customer/account/"><?php echo "Hi, " . $customerSession->getCustomer()->getName(); ?></a>
+                                            <ul class="logout-section">
+                                                <li ><a href="/beta/customer/account/">
+                                                        My Account
+                                                    </a></li>
+                                                <li ><a href="/beta/customer/account/logout/">
+                                                        Logout
+                                                    </a></li>
+                                            </ul>
+
+                                        </li>
+
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <li class="login-btn"><a href="/beta/customer/account/login/">Login</a></li>
+                                    <?php } ?>
+                                    <li class="subscribe-btn"><a href="/beta/tavia/index/index/"> Subscribe Now </a></li>
+                                    <?php if ($customerSession->isLoggedIn()) { ?>          
+                                        <li class="box-btn"><a href="/beta/checkout/cart"> <img src="https://www.mytavia.com/beta/pub/media/wysiwyg/if_box_227592.png"> My Box </a></li>
+                                        <?php } ?>
+                                </ul>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </nav>        
+            <?php // /* @escapeNotVerified */ echo $block->getChildHtml();  ?>
+            <?php // echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('main_navigation')->toHtml();   ?>
+        </ul>
+
+    </div>-->
+ <?php
+}
+//else {
+//    echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('product-navigation')->toHtml();
+//}
+?>

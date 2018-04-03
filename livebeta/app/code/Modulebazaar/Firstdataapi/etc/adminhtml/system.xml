@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="firstdataapi" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>FirstData (GGe4)</label>
+				<field id="listbutton" translate="label" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+					<frontend_model>Modulebazaar\Firstdataapi\Block\System\Config\Form\Button</frontend_model>
+				</field>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+				<field id="transaction_mode" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Transaction Mode</label>
+                    <source_model>Modulebazaar\Firstdataapi\Model\Source\Mode</source_model>
+					<comment>If you choose Live mode Must enter Orginal Details</comment>
+                </field>
+				<field id="username" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Merchant Token</label>
+				</field>
+				<field id="gateway_id" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Api Key</label>
+				</field>
+				<field id="gateway_pwd" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Api Secret</label>
+				</field>
+				<field id="api_version" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Api Version</label>
+				</field>
+
+				<field id="transaction_type" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Transaction Type</label>
+					<source_model>Modulebazaar\Firstdataapi\Model\Source\Type</source_model>
+				</field>
+				<field id="cctypes" translate="label" type="multiselect" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Credit Card Types</label>
+					<source_model>Magento\Payment\Model\Source\Cctype</source_model>
+				</field>
+				<field id="useccv" translate="label" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Credit Card Verification</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+                <field id="order_status" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>New Order Status</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+				<field id="sender_name" translate="label" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Sender Name</label>
+				</field>
+				<field id="supplieremail_subject" translate="label" type="text" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Email Subject</label>
+				</field>
+				<field id="sender_email" translate="label" type="text" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Supplier Sender Email</label>
+				</field>
+				<field id="susbscription_email" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Supplier Email Address</label>
+				</field>
+              </group>
+        </section>
+    </system>
+</config>

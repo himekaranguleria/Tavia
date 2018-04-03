@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+.bundelImageDiv {
+  background: rgba(0, 0, 0, 0.1) none repeat scroll 0 0;
+  display: inline-block;
+  margin-right: 20px;
+  padding: 10px 0 6px;
+  vertical-align: top;
+}.field.option .control {
+  display: inline-block;
+}.nested.options-list .choice .label {
+  margin: 0 !important;
+}.product-add-form .bundle-options-wrapper .product-options-wrapper {
+  width: 100%;
+}.fieldset-bundle-options .selectDropdownProduct ul {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+/*  height: 140px;
+  overflow: auto;*/
+  padding: 10px 15px;
+}.qty-holder .control span {
+  display: inline-block;
+  vertical-align: middle;
+}.qty-holder .control span {
+  display: inline-block;
+  vertical-align: middle;
+}.qty-holder .control input {
+  display: inline-block;
+  vertical-align: middle;
+}.qty-holder .control span a {
+  color: rgb(25, 121, 195);
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0 3px;
+  text-decoration: none;
+}.bundle-remove {
+  color: rgb(255, 0, 0);
+  cursor: pointer;
+  float: right;
+  font-size: 15px;
+  font-weight: bold;
+  margin-left: 10px;
+}.field.option {
+  padding: 10px 0 20px;
+}.field.qty.qty-holder > .label {
+  width: 100% !important;
+}.qty-holder .control {
+  padding: 10px 0 0;
+}.fieldset-bundle-options .selectDropdownProduct ul li {
+  cursor: pointer;
+  display: block;
+  font-weight: 700;
+}.fieldset-bundle-options .selectDropdownProduct ul li:hover {
+  color: rgb(25, 121, 195);
+}.qty-holder > .label > span {
+  font-weight: 700;
+}.ItemsLeftDiv {
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  margin-bottom: 10px;
+}

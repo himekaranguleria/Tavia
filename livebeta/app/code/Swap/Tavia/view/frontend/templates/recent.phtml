@@ -1,0 +1,63 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<div class="block block-dashboard-orders">
+<?php $_subscriptions = $block->getRecentSubscriptions(); ?>
+    <div class="block-title order">
+        <strong><?php /* @escapeNotVerified */ echo __('Recent Subscription') ?></strong>
+        <?php if ($_subscriptions->getSize() > 0): ?>
+            <a class="action view" href="<?php /* @escapeNotVerified */ echo $block->getUrl('tavia/customer') ?>">
+                <span><?php /* @escapeNotVerified */ echo __('View All') ?></span>
+            </a>
+        <?php endif; ?>
+    </div>
+<?php //echo $block->getChildHtml('info');?>
+<?php if ($_subscriptions && count($_subscriptions)): ?>
+<?php $priceHelper = $this->helper('Magento\Framework\Pricing\Helper\Data'); ?>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?php /* @escapeNotVerified */ echo __('Orders') ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?php /* @escapeNotVerified */ echo __('Subscription Id #') ?></th>
+                    <th scope="col" class="col order_id"><?php /* @escapeNotVerified */ echo __('Order Id #') ?></th>
+                    <th scope="col" class="col date"><?php /* @escapeNotVerified */ echo __('Date') ?></th>
+                    <th scope="col" class="col date"><?php /* @escapeNotVerified */ echo __('Next Payment Date') ?></th>
+                    <th scope="col" class="col total"><?php /* @escapeNotVerified */ echo __('Amount') ?></th>
+                    <th scope="col" class="col total"><?php /* @escapeNotVerified */ echo __('Day') ?></th>
+                    <th scope="col" class="col status"><?php /* @escapeNotVerified */ echo __('Status') ?></th>
+                    <th scope="col" class="col actions">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($_subscriptions as $_subscription): ?>
+                    <tr>
+                        <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $_subscription->getId() ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $_subscription->getOrderNumber() ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Date')) ?>" class="col date"><?php /* @escapeNotVerified */ echo $block->formatDate($_subscription->getCreatedAt()) ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Date')) ?>" class="col date"><?php /* @escapeNotVerified */ echo $block->formatDate($_subscription->getNextAt()) ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo  $priceHelper->currency($_subscription->getOrderAmount(), true, false); ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $_subscription->getDay() ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo ($_subscription->getStatus()==1?'Active':'In Active') ?></td>
+						<td data-th="<?php echo $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                            <a href="<?php /* @escapeNotVerified */ echo $this->getUrl('sales/order/view', ['order_id' => $_subscription->getOrderId()]) ?>" class="action view">
+                                <span><?php /* @escapeNotVerified */ echo __('View') ?></span>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span><?php /* @escapeNotVerified */ echo __('You have no subscription.'); ?></span></div>
+<?php endif ?>
