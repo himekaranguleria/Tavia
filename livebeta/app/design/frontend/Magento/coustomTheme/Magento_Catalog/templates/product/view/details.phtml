@@ -4,10 +4,15 @@
  * See COPYING.txt for license details.
  */
 // @codingStandardsIgnoreFile
-//@var $prompt for prompt message
-//@var $firstbox for Checking the first box
+// variables
+//$prompt for prompt message
+//$firstbox for Checking the first box
+//Array 
 //@array $DynamicBoxes for array of box selected containing the tampons,pads,lines and Total
 //@array $SavedDynamicBoxes for detail of box
+// unusefull classes
+// qty_entered - we have removed the concept of editing quantity
+// prevent-popup - Direct access is enabled for popup 
 ?>
 <?php
 //ini_set('display_errors', 1);
@@ -52,10 +57,10 @@ if (!@$DynamicBoxes) {
     $firstbox = 1;
 }
 $SavedDynamicBoxes = $checkoutSession->getSavedDynamicBox();
-echo '<pre>';
-echo var_export($DynamicBoxes, true);
-echo var_export($SavedDynamicBoxes, true);
-echo '</pre>';
+//echo '<pre>';
+//echo var_export($DynamicBoxes, true);
+//echo var_export($SavedDynamicBoxes, true);
+//echo '</pre>';
 ?>
 <?php
 $objectManagers = \Magento\Framework\App\ObjectManager::getInstance();
@@ -109,13 +114,16 @@ foreach ($selectionCollection as $proselection) {
                                             $show_info = $itemLeft = 0;
                                             $style_selectedbox = "pointer-events: none";
                                         }
+                                        $loop = 1;
                                         foreach ($selectionCollection as $proselection) {
+
                                             if ($proselection->getOptionId() == $boxOptionId) {
                                                 $selectedbox = "";
                                                 if (@$DynamicBoxval['Total'] == $proselection->getSku()) {
                                                     $selectedbox = " btn-primary";
                                                 }
-                                                $boxhtml .= '<span data-group="' . $DynamicBoxkey . '" class="boxsizebtn btn btn-default' . $selectedbox . '" data-id="' . $proselection->getSelectionId() . '" data-val="' . $proselection->getSku() . '" style="' . $style_selectedbox . '" >' . $proselection->getSku() . '</span>';
+                                                $boxhtml .= '<span data-group="' . $DynamicBoxkey . '" class="boxCounter' . $loop . ' boxsizebtn btn btn-default' . $selectedbox . '" data-id="' . $proselection->getSelectionId() . '" data-val="' . $proselection->getSku() . '" style="' . $style_selectedbox . '" >' . $proselection->getSku() . '</span>';
+                                                $loop++;
                                             }
                                         }
                                         ?>
@@ -195,17 +203,17 @@ foreach ($selectionCollection as $proselection) {
                                             ?>
                                             <?php if ($sum == 0) { ?>
                                                 <td class="plus_minus">
-                                                    <a class="incr-btn" data-action="decrease" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">–</a>
-                                                    <input    class="qty_entered s_item l_item t_class" data-max="50"  data-group="<?php echo $DynamicBoxkey; ?>"  type="text" name="tempons_sum" value="<?php echo ((array_key_exists($category, $DynamicBoxval) && !is_null($DynamicBoxval[$category])) ? $DynamicBoxval[$category] : 0); ?>"/>
-                                                    <a class="incr-btn" data-action="increase" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">&plus;</a>
+                                                    <!--<a class="incr-btn" data-action="decrease" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">–</a>-->
+                                                    <input    class="qty_entered s_item l_item t_class" data-max="50" readonly="readonly" data-group="<?php echo $DynamicBoxkey; ?>"  type="text" name="tempons_sum" value="<?php echo ((array_key_exists($category, $DynamicBoxval) && !is_null($DynamicBoxval[$category])) ? $DynamicBoxval[$category] : 0); ?>"/>
+                                                    <!--<a class="incr-btn" data-action="increase" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">&plus;</a>-->
                                                 </td>
                                             <?php } else { ?>
                                                 <td class="plus_minus" style="display: none;">
-                                                    <a class="incr-btn" data-action="decrease" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">–</a>
-                                                    <input  class="qty_entered s_item l_item t_class" data-max="50" data-group="<?php echo $DynamicBoxkey; ?>" name="tempons_sum" value="<?php echo ((array_key_exists($category, $DynamicBoxval) && !is_null($DynamicBoxval[$category])) ? $DynamicBoxval[$category] : 0); ?>" type="text">
-                                                    <a class="incr-btn inactive" data-action="increase" data-group="1" href="javascript:;">+</a>
+                                                    <!--<a class="incr-btn" data-action="decrease" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">–</a>-->
+                                                    <input  class="qty_entered s_item l_item t_class" data-max="50" readonly="readonly" data-group="<?php echo $DynamicBoxkey; ?>" name="tempons_sum" value="<?php echo ((array_key_exists($category, $DynamicBoxval) && !is_null($DynamicBoxval[$category])) ? $DynamicBoxval[$category] : 0); ?>" type="text">
+                                                    <!--<a class="incr-btn inactive" data-action="increase" data-group="1" href="javascript:;">+</a>-->
                                                 </td>
-                                                <td class="gCatQuantity"><span class="gCatQuantitySelected" id=""><?php echo $sum; ?></span>/<span class="gCatQuantityTotal"><?php echo ((array_key_exists($category, $DynamicBoxval) && !is_null($DynamicBoxval[$category])) ? $DynamicBoxval[$category] : 0); ?></span></td>
+                                                <td class="gCatQuantity"><span class="gCatQuantitySelected" id=""><?php echo $sum; ?></span><span class="gCatQuantityTotal" style="display:none"><?php echo ((array_key_exists($category, $DynamicBoxval) && !is_null($DynamicBoxval[$category])) ? $DynamicBoxval[$category] : 0); ?></span></td>
                                             <?php } ?>
                                             <td class="choosebtn"><a href="javascript:;" data-val="<?php echo $category; ?>" data-group="<?php echo $DynamicBoxkey; ?>" class="ajaxTrigger" > Choose Tampons</a></td>
                                         </tr>
@@ -299,17 +307,17 @@ foreach ($selectionCollection as $proselection) {
                                             ?>
                                             <?php if ($sum == 0) { ?>
                                                 <td class="plus_minus">
-                                                    <a class="incr-btn" data-action="decrease" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">–</a>
-                                                    <input   class="qty_entered s_item l_item t_class" data-max="50"  data-group="<?php echo $DynamicBoxkey; ?>"  type="text" name="tempons_sum" value="<?php echo ((array_key_exists($cat, $DynamicBoxval) && !is_null($DynamicBoxval[$cat])) ? $DynamicBoxval[$cat] : 0); ?>"/>
-                                                    <a class="incr-btn" data-action="increase" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">&plus;</a>
+                                                    <!--<a class="incr-btn" data-action="decrease" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">–</a>-->
+                                                    <input   class="qty_entered s_item l_item t_class" data-max="50" readonly="readonly"  data-group="<?php echo $DynamicBoxkey; ?>"  type="text" name="tempons_sum" value="<?php echo ((array_key_exists($cat, $DynamicBoxval) && !is_null($DynamicBoxval[$cat])) ? $DynamicBoxval[$cat] : 0); ?>"/>
+        <!--                                                    <a class="incr-btn" data-action="increase" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">&plus;</a>-->
                                                 </td>
                                             <?php } else { ?>
                                                 <td class="plus_minus" style="display: none;">
-                                                    <a class="incr-btn" data-action="decrease" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">–</a>
-                                                    <input class="qty_entered s_item l_item t_class" data-max="50" data-group="<?php echo $DynamicBoxkey; ?>" name="pads_sum" value="<?php echo ((array_key_exists($cat, $DynamicBoxval) && !is_null($DynamicBoxval[$cat])) ? $DynamicBoxval[$cat] : 0); ?>" type="text">
-                                                    <a class="incr-btn inactive" data-action="increase" data-group="1" href="javascript:;">+</a>
+                                                    <!--<a class="incr-btn" data-action="decrease" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">–</a>-->
+                                                    <input class="qty_entered s_item l_item t_class" data-max="50" readonly="readonly" data-group="<?php echo $DynamicBoxkey; ?>" name="pads_sum" value="<?php echo ((array_key_exists($cat, $DynamicBoxval) && !is_null($DynamicBoxval[$cat])) ? $DynamicBoxval[$cat] : 0); ?>" type="text">
+                                                    <!--<a class="incr-btn inactive" data-action="increase" data-group="1" href="javascript:;">+</a>-->
                                                 </td>
-                                                <td class="gCatQuantity"><span class="gCatQuantitySelected" id=""><?php echo $sum; ?></span>/<span class="gCatQuantityTotal"><?php echo ((array_key_exists($cat, $DynamicBoxval) && !is_null($DynamicBoxval[$cat])) ? $DynamicBoxval[$cat] : 0); ?></span></td>
+                                                <td class="gCatQuantity"><span class="gCatQuantitySelected" id=""><?php echo $sum; ?></span><span class="gCatQuantityTotal" style="display:none"><?php echo ((array_key_exists($cat, $DynamicBoxval) && !is_null($DynamicBoxval[$cat])) ? $DynamicBoxval[$cat] : 0); ?></span></td>
                                             <?php } ?>
                                             <!--td class="plus_minus">
                                                 <a class="incr-btn" data-action="decrease" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">–</a>
@@ -402,17 +410,17 @@ foreach ($selectionCollection as $proselection) {
                                             ?>
                                             <?php if ($sum == 0) { ?>
                                                 <td class="plus_minus">
-                                                    <a class="incr-btn" data-action="decrease" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">–</a>
-                                                    <input   class="qty_entered s_item l_item t_class" data-max="50"  data-group="<?php echo $DynamicBoxkey; ?>"  type="text" name="tempons_sum" value="<?php echo ((array_key_exists($cat, $DynamicBoxval) && !is_null($DynamicBoxval[$cat])) ? $DynamicBoxval[$cat] : 0); ?>"/>
-                                                    <a class="incr-btn" data-action="increase" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">&plus;</a>
+                                                    <!--<a class="incr-btn" data-action="decrease" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">–</a>-->
+                                                    <input   class="qty_entered s_item l_item t_class" data-max="50" readonly="readonly"  data-group="<?php echo $DynamicBoxkey; ?>"  type="text" name="tempons_sum" value="<?php echo ((array_key_exists($cat, $DynamicBoxval) && !is_null($DynamicBoxval[$cat])) ? $DynamicBoxval[$cat] : 0); ?>"/>
+                                                    <!--<a class="incr-btn" data-action="increase" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">&plus;</a>-->
                                                 </td>
                                             <?php } else { ?>
                                                 <td class="plus_minus" style="display: none;">
-                                                    <a class="incr-btn" data-action="decrease" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">–</a>
-                                                    <input class="qty_entered s_item l_item t_class" data-max="50" data-group="<?php echo $DynamicBoxkey; ?>" name="liners_sum" value="<?php echo ((array_key_exists($cat, $DynamicBoxval) && !is_null($DynamicBoxval[$cat])) ? $DynamicBoxval[$cat] : 0); ?>" type="text">
-                                                    <a class="incr-btn inactive" data-action="increase" data-group="1" href="javascript:;">+</a>
+                                                    <!--<a class="incr-btn" data-action="decrease" data-group="<?php echo $DynamicBoxkey; ?>" href="javascript:;">–</a>-->
+                                                    <input class="qty_entered s_item l_item t_class" data-max="50" readonly="readonly" data-group="<?php echo $DynamicBoxkey; ?>" name="liners_sum" value="<?php echo ((array_key_exists($cat, $DynamicBoxval) && !is_null($DynamicBoxval[$cat])) ? $DynamicBoxval[$cat] : 0); ?>" type="text">
+                                                    <!--<a class="incr-btn inactive" data-action="increase" data-group="1" href="javascript:;">+</a>-->
                                                 </td>
-                                                <td class="gCatQuantity"><span class="gCatQuantitySelected" id=""><?php echo $sum; ?></span>/<span class="gCatQuantityTotal"><?php echo ((array_key_exists($cat, $DynamicBoxval) && !is_null($DynamicBoxval[$cat])) ? $DynamicBoxval[$cat] : 0); ?></span></td>
+                                                <td class="gCatQuantity"><span class="gCatQuantitySelected" id=""><?php echo $sum; ?></span><span class="gCatQuantityTotal" style="display:none"><?php echo ((array_key_exists($cat, $DynamicBoxval) && !is_null($DynamicBoxval[$cat])) ? $DynamicBoxval[$cat] : 0); ?></span></td>
                                             <?php } ?>
                                             <td class="choosebtn"><a href="javascript:;" data-val="Liners" data-group="<?php echo $DynamicBoxkey; ?>" class="ajaxTrigger" data-group="<?php echo $DynamicBoxkey; ?>" >Choose Liners</a></td>
                                         </tr>
@@ -522,7 +530,10 @@ foreach ($selectionCollection as $proselection) {
                                                 }
                                                 ?>
                                             </td>
-                                        <?php }
+                                        <?php } else {
+                                            ?><td class="plus_minus-days" colspan="2"></td>
+                                            <?php
+                                        }
                                         ?> <td class="title-block"> <a class="addextrabox" href="javascript:;"><i class="fa fa-refresh fa-spin loadericon1" style="display: none"></i>Add another box?</a></td>
                                     </tr>
                                 </tbody>
@@ -687,6 +698,306 @@ foreach ($selectionCollection as $proselection) {
 //                $(".container-fluid").hide();
                 $(".bundle-options-wrapper,#bundleSummary,.footer-main,.bundle-options-container").hide();
                 $(".tab-header").show();
+
+
+
+                /**
+                 * Select the box size 
+                 */
+                $('.boxsizebtn').click(function (e) {
+                    $(".prompt-section").remove();
+                    var group = $(this).data('group');
+                    box_size = $(this).data('val');
+                    console.log(box_size);
+                    console.log(group);
+                    $('.boxsizebtn[data-group="' + group + '"]').removeClass("btn-primary");
+                    $('.box_size_id[data-group="' + group + '"]').val(box_size);
+                    $(this).addClass("btn-primary");
+                    $('.ttl_qty[data-group="' + group + '"]').attr('data-max', box_size);
+                    $('.ttl_qty_span[data-group="' + group + '"]').attr('data-max', box_size);
+                    $('.ttl_qty_span[data-group="' + group + '"]').text(box_size - $('.ttl_qty[data-group="' + group + '"]').val());
+                    $('.ttl_box_display_qty[data-group="' + group + '"]').text(box_size);
+                    if ($('.ttl_qty[data-group="' + group + '"]').val() > box_size) {
+                        $('.ttl_display_added_qty[data-group="' + group + '"]').parent('div').addClass('alert-danger').removeClass('alert-info').removeClass('alert-success');
+                        $('.ajaxTrigger[data-group="' + group + '"]').addClass('prevent-popup');
+                    } else if ($('.ttl_qty[data-group="' + group + '"]').val() == box_size) {
+                        $('.ttl_display_added_qty[data-group="' + group + '"]').parent('div').addClass('alert-success').removeClass('alert-info').removeClass('alert-danger');
+                        $('.ajaxTrigger[data-group="' + group + '"]').removeClass('prevent-popup');
+                    } else {
+                        $('.ttl_display_added_qty[data-group="' + group + '"]').parent('div').addClass('alert-info').removeClass('alert-success').removeClass('alert-danger');
+                        $('.ajaxTrigger[data-group="' + group + '"]').addClass('prevent-popup');
+                    }
+                });
+
+                //*************************************************************************************************************************************************
+                // Prevent Popup model from opening and opening of popup
+                //*************************************************************************************************************************************************
+                $(".ajaxTrigger").on("click", function (e) {
+                    var group = $(this).data('group');
+                    /**
+                     * check for the box size is selected.
+                     * @var box_selected for the box selected.
+                     */
+                    var box_selected = $('.btn-primary[data-group="' + group + '"]').data('val');
+                    if (typeof box_selected == 'undefined') {
+                        alert("Please select Box Size first");
+                    } else {
+//                        $('#addBtnId').hide();
+                        $("#popupId").empty();
+//                        if ($(this).hasClass("prevent-popup")) {
+//                            $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").removeClass("alert-success").removeClass("alert-info").addClass("alert-danger");
+//                            e.stopPropagation();
+//                        } else {
+//                            if ($(this).parent(".choosebtn").siblings("td.plus_minus").children("input.s_item.l_item").val() == 0)
+//                            {
+//                                e.stopPropagation();
+//                            } else {
+                        $(".pads-popup").toggleClass("open");
+                        console.log("openpopup");
+                        $('.boxsizebtn[data-group="' + group + '"]').css("pointer-events", "none");
+                        resetFilter();
+                        $("#catItemSelected").text("0");
+                        $('#ttl_box_display_qty[data-group="' + group + '"]').text();
+                        var cat_max_size = $('.ttl_qty_span[data-group="' + group + '"]').text();
+//                        var cat_max_size = box_selected;
+                        $("#catBoxSize").text(cat_max_size);
+                        $("#quantity_left").text(cat_max_size);
+                        console.log(cat_max_size);
+                        $("#loaderId").show();
+                        $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").removeClass("alert-danger").removeClass("alert-info").addClass("alert-success");
+                        var catRequest = $(this).attr("data-val");
+                        $('#brandSelectId').find('option').remove();
+                        if (catRequest == "Tampons") {
+                            $('#brandSelectId').append('<option value="all">All Brands</option>');
+                            $('#brandSelectId').append('<option value="OB">O.B.</option>');
+                            $('#brandSelectId').append('<option value="Playtex" >Playtex</option>');
+                            $('#brandSelectId').append('<option value="Tampax" >Tampax</option>');
+                        } else if (catRequest == "Pads") {
+                            $('#brandSelectId').append('<option value="all" >All Brands</option>');
+                            $('#brandSelectId').append('<option value="Always">Always</option>');
+                            $('#brandSelectId').append('<option value="Playtex">Playtex</option>');
+                            $('#brandSelectId').append('<option value="Stayfree">Stayfree</option>');
+                        } else {
+                            $('#brandSelectId').append('<option value="all" >All Brands</option>');
+                            $('#brandSelectId').append('<option value="Always" >Always</option>');
+                            $('#brandSelectId').append('<option value="Carefree" >Carefree</option>');
+                            $('#brandSelectId').append('<option value="Playtex" >Playtex</option>');
+                        }
+                        $(".modal-title").text("Choose " + catRequest);
+                        $("#searchId").attr("placeholder", "Search " + catRequest);
+                        $("#addBtnId").text("Add Selected " + catRequest);
+                        $("#data-val-popup").val(catRequest);
+                        $("#data-val-group").val(group);
+                        //*************************************************************************************************************************************************
+                        //Ajax code for the brands selection
+                        //*************************************************************************************************************************************************
+                        var customurl = "<?php echo $this->getUrl() . 'tavia/index/popup/' ?>";
+                        $.ajax({
+                            url: customurl,
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                catRequest: catRequest,
+                            },
+                            complete: function (response) {
+                                $("#loaderId").hide();
+                                $("#popupId").html(response.responseText);
+                                completeArray = JSON.parse($("#completeArrayId").val());
+                            },
+                            error: function (xhr, status, errorThrown) {
+                                console.log('Error happens. Try again.');
+                            }
+                        });
+//                            }
+//                        }
+                    }
+                });
+
+
+//*************************************************************************************************************************************************
+//Plus minus code of append popup
+//*************************************************************************************************************************************************
+                $(document).on("click", ".incr-btn-popup", function (e) {
+                    var $button = $(this);
+                    var oldValue = $button.parent().find('.s_item-popup').val();
+                    $button.parent().find('.incr-btn-popup[data-action="decrease"]').removeClass('inactive');
+                    console.log("oldValue");
+                    console.log(oldValue);
+                    var box_size_popup = $("#catBoxSize").text();
+                    var sum_popup_cal = parseInt($("#catItemSelected").text()) + parseInt(1);
+                    if ($button.data('action') == "increase") {
+
+                        if (sum_popup_cal <= box_size_popup) {
+                            var newVal = parseFloat(oldValue) + 1;
+                        } else {
+                            newVal = oldValue;
+                            $button.addClass('inactive');
+                        }
+                    } else {
+//                         var box_size_popup = $("#catBoxSize").text();
+                        if (oldValue > 0) {
+                            var newVal = parseFloat(oldValue) - 1;
+                        } else {
+                            newVal = 0;
+                            $button.addClass('inactive');
+                        }
+                    }
+                    console.log("newVal");
+                    console.log(newVal);
+
+                    $button.parent().find('.s_item-popup').val(newVal);
+                    var sum_popup = 0;
+                    $.each($("tr.tr-popup td.plus_minus input.s_item-popup"), function (key, value) {
+                        sum_popup += +$(value).val();
+                    });
+                    $("#catItemSelected").text(sum_popup);
+                    var quantity_left = box_size_popup - sum_popup;
+                    console.log("box_size_popup");
+                    console.log(box_size_popup);
+                    console.log("sum_popup");
+                    console.log(sum_popup);
+                    console.log("quantity_left");
+                    console.log(quantity_left);
+                    $("#quantity_left").text(quantity_left);
+                    if (sum_popup == box_size_popup) {
+//                        $('#addBtnId').show();
+                        $("td.plus_minus input.s_item-popup").removeClass("box_error");
+                        $("#popupInfoTab").addClass("success-cls");
+                        $("#addBtnId").removeClass("prevent-popup-add");
+                    } else {
+//                        $('#addBtnId').hide();
+                        $("#popupInfoTab").removeClass("success-cls");
+                        $("#addBtnId").addClass("prevent-popup-add");
+                    }
+                    e.preventDefault();
+                });
+
+
+//*************************************************************************************************************************************************
+// Popup Enable number Entry
+//*************************************************************************************************************************************************
+                $(document).on("change keyup", ".s_item-popup", function () {
+//                    var changed_value = $(this).val();
+                    var box_size_popup = $("#catBoxSize").text();
+//                    var catItemSelected = $("#catItemSelected").text();
+//                    var total_available = parseInt(box_size_popup) - parseInt(catItemSelected);
+                    var sum_popup = 0;
+                    $.each($("tr.tr-popup td.plus_minus input.s_item-popup"), function (key, value) {
+                        sum_popup += +$(value).val();
+                    });
+                    if (sum_popup > box_size_popup) {
+                        $(this).addClass("box_error");
+                        $(this).val(0);
+                    } else {
+                        var quantity_left = box_size_popup - sum_popup;
+                        $("#quantity_left").text(quantity_left);
+                        $("td.plus_minus input.s_item-popup").removeClass("box_error");
+                        $("#catItemSelected").text(sum_popup);
+                        if (sum_popup == box_size_popup) {
+//                            $("#addBtnId").show();
+                            console.log("show btn");
+                            $("td.plus_minus input.s_item-popup").removeClass("box_error");
+                            $("#popupInfoTab").addClass("success-cls");
+                            $("#addBtnId").removeClass("prevent-popup-add");
+                        } else {
+//                            $("#addBtnId").hide();
+                            console.log("hide btn");
+                            $("#popupInfoTab").removeClass("success-cls");
+                            $("#addBtnId").addClass("prevent-popup-add");
+                        }
+                    }
+//
+//
+                });
+                //*************************************************************************************************************************************************
+                // Trash Button code
+                //*************************************************************************************************************************************************
+                $(document).on("click", ".deletebtn", function (e) {
+                    var groupTr = $(this).parent("span").parent("td.carefree-icon").parent("tr.tr-popup").data('group');
+                    console.log(groupTr);
+                    $(this).parent("span").parent("td.carefree-icon").parent("tr.tr-popup").remove();
+                    var sum_selection = 0;
+                    var catName = $(this).attr("data-title");
+                    $.each($('tr.' + catName + '_child[data-group="' + groupTr + '"] td.plus_minus input.s_item-append'), function (key, value) {
+                        console.log($(value).val());
+                        sum_selection += +$(value).val();
+                    });
+
+                    $('tr.' + catName + '[data-group="' + groupTr + '"] td.gCatQuantity span.gCatQuantitySelected').text(sum_selection);
+                    // Total sum of all the itmes
+                    var sum = 0;
+                    $('tr.ttl_cls[data-group="' + groupTr + '"] span.gCatQuantitySelected').each(function (e) {
+                        sum = parseInt(sum) + parseInt($(this).text());
+                    });
+                    var box_selected = $('.btn-primary[data-group="' + groupTr + '"]').data('val');
+                    var total_left = box_selected - sum;
+
+                    console.log("sum");
+                    console.log(sum);
+                    console.log(box_selected);
+                    console.log("box_selected");
+                    $(".ttl_qty_span").text(total_left);
+                });
+
+                //*************************************************************************************************************************************************
+                //Plus minus code of final selection
+                //*************************************************************************************************************************************************
+                $(document).on("click", ".incr-btn-selection", function (e) {
+                    var $button = $(this);
+                    var grp = $button.parent().parent().data('group');
+                    var catName = $button.attr('data-title');
+                    var oldValue = $button.parent().find('.s_item-append').val();
+                    $button.parent().find('.incr-btn-popup[data-action="decrease"]').removeClass('inactive');
+                    var total_left = $('.ttl_qty_span[data-group="' + grp + '"]').text();
+                    if ($button.data('action') == "increase") {
+//                        var box_size_popup = $('tr.' + catName + '[data-group="' + grp + '"] td.gCatQuantity span.gCatQuantityTotal').text();
+                        console.log("tr." + catName + " td.gCatQuantity span.gCatQuantityTotal");
+//                        console.log(box_size_popup);
+                        var sum_popup_cal = parseInt($('tr.' + catName + '[data-group="' + grp + '"] td.gCatQuantity span.gCatQuantitySelected').text()) + parseInt(1);
+                        if (total_left > 0) {
+                            var newVal = parseFloat(oldValue) + 1;
+                        } else {
+                            newVal = oldValue;
+                            $button.addClass('inactive');
+                        }
+                    } else {
+                        if (oldValue > 1) {
+                            var newVal = parseFloat(oldValue) - 1;
+                        } else {
+                            newVal = 1;
+                            $button.addClass('inactive');
+                        }
+                    }
+                    $button.parent().find('.s_item-append').val(newVal);
+                    var sum_selection = 0;
+                    $.each($('tr.' + catName + '_child[data-group="' + grp + '"] td.plus_minus input.s_item-append'), function (key, value) {
+                        console.log($(value).val());
+                        sum_selection += +$(value).val();
+                    });
+                    console.log("sum_selection");
+                    console.log(sum_selection);
+                    // Total sum of all the itmes
+                    $('tr.' + catName + '[data-group="' + grp + '"] td.gCatQuantity span.gCatQuantitySelected').text(sum_selection);
+                    var sum = 0;
+                    $('tr.ttl_cls[data-group="' + grp + '"] span.gCatQuantitySelected').each(function (e) {
+                        sum = parseInt(sum) + parseInt($(this).text());
+                        console.log(parseInt($(this).text()));
+                    });
+                    console.log("sum");
+                    console.log(sum);
+                    var box_selected = $('.btn-primary[data-group="' + grp + '"]').data('val');
+                    console.log("box_selected");
+                    console.log(box_selected);
+                    var total_left = box_selected - sum;
+                    $(".ttl_qty_span").text(total_left);
+                    console.log("total_left");
+                    console.log(total_left);
+
+                });
+
+
+
+
                 //*************************************************************************************************************************************************
                 // Creating Function for the
                 //*************************************************************************************************************************************************
@@ -764,115 +1075,86 @@ foreach ($selectionCollection as $proselection) {
                     }
                 });
 //                } else {
-//                    var home_url = "<?php // echo $block->getUrl('tavia/index/index');                                                                                                                                     ?>";
+//                    var home_url = "<?php // echo $block->getUrl('tavia/index/index');                                                                                                                                                                 ?>";
 //                    $(location).attr('href', home_url);
 //                }
-                /**
-                 * Select the box size 
-                 */
-                $('.boxsizebtn').click(function (e) {
-                    $(".prompt-section").remove();
-                    var group = $(this).data('group');
-                    box_size = $(this).data('val');
-                    console.log(box_size);
-                    console.log(group);
-                    $('.boxsizebtn[data-group="' + group + '"]').removeClass("btn-primary");
-                    $('.box_size_id[data-group="' + group + '"]').val(box_size);
-                    $(this).addClass("btn-primary");
-                    $('.ttl_qty[data-group="' + group + '"]').attr('data-max', box_size);
-                    $('.ttl_qty_span[data-group="' + group + '"]').attr('data-max', box_size);
-                    $('.ttl_qty_span[data-group="' + group + '"]').text(box_size - $('.ttl_qty[data-group="' + group + '"]').val());
-                    $('.ttl_box_display_qty[data-group="' + group + '"]').text(box_size);
-                    if ($('.ttl_qty[data-group="' + group + '"]').val() > box_size) {
-                        $('.ttl_display_added_qty[data-group="' + group + '"]').parent('div').addClass('alert-danger').removeClass('alert-info').removeClass('alert-success');
-                        $('.ajaxTrigger[data-group="' + group + '"]').addClass('prevent-popup');
-                    } else if ($('.ttl_qty[data-group="' + group + '"]').val() == box_size) {
-                        $('.ttl_display_added_qty[data-group="' + group + '"]').parent('div').addClass('alert-success').removeClass('alert-info').removeClass('alert-danger');
-                        $('.ajaxTrigger[data-group="' + group + '"]').removeClass('prevent-popup');
-                    } else {
-                        $('.ttl_display_added_qty[data-group="' + group + '"]').parent('div').addClass('alert-info').removeClass('alert-success').removeClass('alert-danger');
-                        $('.ajaxTrigger[data-group="' + group + '"]').addClass('prevent-popup');
-                    }
-                });
+
                 //*************************************************************************************************************************************************
                 // change the value of the box on chenge of dropdown
                 //*************************************************************************************************************************************************
-                $('.box_size_id').change(function (e) {
-                    var group = $(this).data('group');
-                    $('.box_size_id[data-group="' + group + '"]').val($(this).val());
-                    box_size = $('.box_size_id[data-group="' + group + '"]').val();
-                    $('.ttl_qty[data-group="' + group + '"]').attr('data-max', box_size);
-                    $('.ttl_box_display_qty[data-group="' + group + '"]').text(box_size);
-                    if ($('.ttl_qty[data-group="' + group + '"]').val() > box_size) {
-                        $('.ttl_display_added_qty[data-group="' + group + '"]').parent('div').addClass('alert-danger').removeClass('alert-info').removeClass('alert-success');
-                        $('.ajaxTrigger[data-group="' + group + '"]').addClass('prevent-popup');
-                    } else if ($('.ttl_qty[data-group="' + group + '"]').val() == box_size) {
-                        $('.ttl_display_added_qty[data-group="' + group + '"]').parent('div').addClass('alert-success').removeClass('alert-info').removeClass('alert-danger');
-                        $('.ajaxTrigger[data-group="' + group + '"]').removeClass('prevent-popup');
-                    } else {
-                        $('.ttl_display_added_qty[data-group="' + group + '"]').parent('div').addClass('alert-info').removeClass('alert-success').removeClass('alert-danger');
-                        $('.ajaxTrigger[data-group="' + group + '"]').addClass('prevent-popup');
-                    }
-                });
-                //*************************************************************************************************************************************************
-                //Plus minus code or increment quantity code
-                //*************************************************************************************************************************************************
+//                $('.box_size_id').change(function (e) {
+//                    var group = $(this).data('group');
+//                    $('.box_size_id[data-group="' + group + '"]').val($(this).val());
+//                    box_size = $('.box_size_id[data-group="' + group + '"]').val();
+//                    $('.ttl_qty[data-group="' + group + '"]').attr('data-max', box_size);
+//                    $('.ttl_box_display_qty[data-group="' + group + '"]').text(box_size);
+//                    if ($('.ttl_qty[data-group="' + group + '"]').val() > box_size) {
+//                        $('.ttl_display_added_qty[data-group="' + group + '"]').parent('div').addClass('alert-danger').removeClass('alert-info').removeClass('alert-success');
+//                        $('.ajaxTrigger[data-group="' + group + '"]').addClass('prevent-popup');
+//                    } else if ($('.ttl_qty[data-group="' + group + '"]').val() == box_size) {
+//                        $('.ttl_display_added_qty[data-group="' + group + '"]').parent('div').addClass('alert-success').removeClass('alert-info').removeClass('alert-danger');
+//                        $('.ajaxTrigger[data-group="' + group + '"]').removeClass('prevent-popup');
+//                    } else {
+//                        $('.ttl_display_added_qty[data-group="' + group + '"]').parent('div').addClass('alert-info').removeClass('alert-success').removeClass('alert-danger');
+//                        $('.ajaxTrigger[data-group="' + group + '"]').addClass('prevent-popup');
+//                    }
+//                });
                 $(".dynamicboxlink").on("click", function (e) {
                     var group = $(this).data('group');
                     console.log(group);
                     $('.dynamicboxwrap').hide();
                     $('.dynamicboxwrap[data-group="' + group + '"]').show();
                 });
-                $(".incr-btn").on("click", function (e) {
-                    var $button = $(this);
-                    var group = $(this).data('group');
-                    var box_size = $('.box_size_id[data-group="' + group + '"]').val();
-                    var box_selected = $('.btn-primary[data-group="' + group + '"]').data('val');
-                    if (typeof box_selected == 'undefined') {
-                        alert("Please select Box Size first");
-                    } else {
-//                        console.log("box_size");
-//                        console.log(box_size);
-//                        console.log("box_size1");
-//                        console.log(box_selected);
-                        var oldValue = $button.parent().find('.s_item[data-group="' + group + '"]').val();
-                        $button.parent().find('.incr-btn[data-action="decrease"]').removeClass('inactive');
-                        if ($button.data('action') == "increase") {
-                            var sum = parseInt($('.ttl_qty[data-group="' + group + '"]').val()) + parseInt(1);
-                            if (sum <= box_size) {
-                                var newVal = parseFloat(oldValue) + 1;
-                            } else {
-                                newVal = oldValue;
-                                $button.addClass('inactive');
-                                $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").addClass("alert-danger").removeClass("alert-success");
-                            }
-                        } else {
-                            if (oldValue > 0) {
-                                var newVal = parseFloat(oldValue) - 1;
-                            } else {
-                                newVal = 0;
-                                $button.addClass('inactive');
-                                $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").addClass("alert-danger").removeClass("alert-success");
-                            }
-                        }
-                        $button.parent().find('.s_item[data-group="' + group + '"]').val(newVal);
-                        var sum = 0;
-                        $.each($('tr.ttl_cls td.plus_minus .s_item[data-group="' + group + '"]'), function (key, value) {
-                            sum += +$(value).val();
-                        });
-                        $('.ttl_qty[data-group="' + group + '"]').val(sum);
-                        $('.ttl_qty_span[data-group="' + group + '"]').text(box_size - $('.ttl_qty[data-group="' + group + '"]').val());
-                        $('.ttl_display_added_qty[data-group="' + group + '"]').text(sum);
-                        if (sum == box_size) {
-                            $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").addClass("alert-success").removeClass("alert-danger");
-                            $('.ajaxTrigger[data-group="' + group + '"]').removeClass("prevent-popup");
-                        } else {
-                            $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").removeClass("alert-success").addClass("alert-danger");
-                            $('.ajaxTrigger[data-group="' + group + '"]').addClass("prevent-popup");
-                        }
-                        e.preventDefault();
-                    }
-                });
+                //*************************************************************************************************************************************************
+                //Plus minus code or increment quantity code
+                //*************************************************************************************************************************************************
+
+//                $(".incr-btn").on("click", function (e) {
+//                    var $button = $(this);
+//                    var group = $(this).data('group');
+//                    var box_size = $('.box_size_id[data-group="' + group + '"]').val();
+//                    var box_selected = $('.btn-primary[data-group="' + group + '"]').data('val');
+//                    if (typeof box_selected == 'undefined') {
+//                        alert("Please select Box Size first");
+//                    } else {
+//                        var oldValue = $button.parent().find('.s_item[data-group="' + group + '"]').val();
+//                        $button.parent().find('.incr-btn[data-action="decrease"]').removeClass('inactive');
+//                        if ($button.data('action') == "increase") {
+//                            var sum = parseInt($('.ttl_qty[data-group="' + group + '"]').val()) + parseInt(1);
+//                            if (sum <= box_size) {
+//                                var newVal = parseFloat(oldValue) + 1;
+//                            } else {
+//                                newVal = oldValue;
+//                                $button.addClass('inactive');
+//                                $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").addClass("alert-danger").removeClass("alert-success");
+//                            }
+//                        } else {
+//                            if (oldValue > 0) {
+//                                var newVal = parseFloat(oldValue) - 1;
+//                            } else {
+//                                newVal = 0;
+//                                $button.addClass('inactive');
+//                                $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").addClass("alert-danger").removeClass("alert-success");
+//                            }
+//                        }
+//                        $button.parent().find('.s_item[data-group="' + group + '"]').val(newVal);
+//                        var sum = 0;
+//                        $.each($('tr.ttl_cls td.plus_minus .s_item[data-group="' + group + '"]'), function (key, value) {
+//                            sum += +$(value).val();
+//                        });
+//                        $('.ttl_qty[data-group="' + group + '"]').val(sum);
+//                        $('.ttl_qty_span[data-group="' + group + '"]').text(box_size - $('.ttl_qty[data-group="' + group + '"]').val());
+//                        $('.ttl_display_added_qty[data-group="' + group + '"]').text(sum);
+//                        if (sum == box_size) {
+//                            $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").addClass("alert-success").removeClass("alert-danger");
+//                            $('.ajaxTrigger[data-group="' + group + '"]').removeClass("prevent-popup");
+//                        } else {
+//                            $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").removeClass("alert-success").addClass("alert-danger");
+//                            $('.ajaxTrigger[data-group="' + group + '"]').addClass("prevent-popup");
+//                        }
+//                        e.preventDefault();
+//                    }
+//                });
                 //*************************************************************************************************************************************************
                 //Plus minus Days
                 //*************************************************************************************************************************************************
@@ -900,127 +1182,47 @@ foreach ($selectionCollection as $proselection) {
                     e.preventDefault();
                 });
                 //*************************************************************************************************************************************************
-                //Plus minus Days
+                //Change of Quantity on direct chang by text box
                 //*************************************************************************************************************************************************\
-                $(document).on("keyup", ".qty_entered", function () {
-                    var newVal = $(this).val();
-                    var $button = $(this);
-                    var group = $(this).data('group');
-                    var box_size = $('.box_size_id[data-group="' + group + '"]').val();
-                    var box_selected = $('.btn-primary[data-group="' + group + '"]').data('val');
-                    if (typeof box_selected == 'undefined') {
-                        alert("Please select Box Size first");
-                        $(this).val(0);
-                    } else {
-//                    console.log(box_size);
-//                    var oldValue = $button.parent().find('.s_item[data-group="' + group + '"]').val();
-                        console.log(newVal);
-                        $button.parent().find('.incr-btn[data-action="decrease"]').removeClass('inactive');
-                        var sum = 0;
-                        $.each($('tr.ttl_cls td.plus_minus .s_item[data-group="' + group + '"]'), function (key, value) {
-                            sum += +$(value).val();
-                        });
-                        if (sum > box_size) {
-                            var extra = sum - box_size;
-//                        console.log("extra");
-//                        console.log(extra);
-//                        console.log("extra");
-//                        console.log(extra);
-                            newVal = newVal - extra;
-//                        console.log("newVal");
+//                $(document).on("keyup", ".qty_entered", function () {
+//                    var newVal = $(this).val();
+//                    var $button = $(this);
+//                    var group = $(this).data('group');
+//                    var box_size = $('.box_size_id[data-group="' + group + '"]').val();
+//                    var box_selected = $('.btn-primary[data-group="' + group + '"]').data('val');
+//                    if (typeof box_selected == 'undefined') {
+//                        alert("Please select Box Size first");
+//                        $(this).val(0);
+//                    } else {
 //                        console.log(newVal);
-                            sum = box_size;
-                            $(this).val(newVal);
-                        }
-                        $('.ttl_qty[data-group="' + group + '"]').val(sum);
-                        $('.ttl_qty_span[data-group="' + group + '"]').text(box_size - $('.ttl_qty[data-group="' + group + '"]').val());
-                        $('.ttl_display_added_qty[data-group="' + group + '"]').text(sum);
-                        if (sum == box_size) {
-                            $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").addClass("alert-success").removeClass("alert-danger");
-                            $('.ajaxTrigger[data-group="' + group + '"]').removeClass("prevent-popup");
-                        } else if (sum > box_size) {
-                            $button.parent().find('.s_item[data-group="' + group + '"]').val(newVal);
-                            $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").removeClass("alert-success").addClass("alert-danger");
-                            $('.ajaxTrigger[data-group="' + group + '"]').addClass("prevent-popup");
-                        } else {
-                            $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").removeClass("alert-success").addClass("alert-danger");
-                            $('.ajaxTrigger[data-group="' + group + '"]').addClass("prevent-popup");
-                        }
-                    }
-//                    e.preventDefault();
-                });
-                //*************************************************************************************************************************************************
-                // Prevent Popup model from opening and opening of popup
-                //*************************************************************************************************************************************************
-                $(".ajaxTrigger").on("click", function (e) {
-                    $('#addBtnId').hide();
-                    var group = $(this).data('group');
-                    $("#popupId").empty();
-                    if ($(this).hasClass("prevent-popup")) {
-                        $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").removeClass("alert-success").removeClass("alert-info").addClass("alert-danger");
-                        e.stopPropagation();
-                    } else {
-                        if ($(this).parent(".choosebtn").siblings("td.plus_minus").children("input.s_item.l_item").val() == 0)
-                        {
-                            e.stopPropagation();
-                        } else {
-                            $(".pads-popup").toggleClass("open");
-                            console.log("openpopup");
-                            $('.boxsizebtn[data-group="' + group + '"]').css("pointer-events", "none");
-                            resetFilter();
-                            $("#catItemSelected").text("0");
-                            $('#ttl_box_display_qty[data-group="' + group + '"]').text();
-                            var cat_max_size = $(this).parent("td").siblings("td.plus_minus").children(".s_item").val();
-                            $("#catBoxSize").text(cat_max_size);
-                            $("#quantity_left").text(cat_max_size);
-                            $("#loaderId").show();
-                            $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").removeClass("alert-danger").removeClass("alert-info").addClass("alert-success");
-                            var catRequest = $(this).attr("data-val");
-                            $('#brandSelectId').find('option').remove();
-                            if (catRequest == "Tampons") {
-                                $('#brandSelectId').append('<option value="all">All Brands</option>');
-                                $('#brandSelectId').append('<option value="OB">O.B.</option>');
-                                $('#brandSelectId').append('<option value="Playtex" >Playtex</option>');
-                                $('#brandSelectId').append('<option value="Tampax" >Tampax</option>');
-                            } else if (catRequest == "Pads") {
-                                $('#brandSelectId').append('<option value="all" >All Brands</option>');
-                                $('#brandSelectId').append('<option value="Always">Always</option>');
-                                $('#brandSelectId').append('<option value="Playtex">Playtex</option>');
-                                $('#brandSelectId').append('<option value="Stayfree">Stayfree</option>');
-                            } else {
-                                $('#brandSelectId').append('<option value="all" >All Brands</option>');
-                                $('#brandSelectId').append('<option value="Always" >Always</option>');
-                                $('#brandSelectId').append('<option value="Carefree" >Carefree</option>');
-                                $('#brandSelectId').append('<option value="Playtex" >Playtex</option>');
-                            }
-                            $(".modal-title").text("Choose " + catRequest);
-                            $("#searchId").attr("placeholder", "Search " + catRequest);
-                            $("#addBtnId").text("Add Selected " + catRequest);
-                            $("#data-val-popup").val(catRequest);
-                            $("#data-val-group").val(group);
-                            //*************************************************************************************************************************************************
-                            //Ajax code for the brands selection
-                            //*************************************************************************************************************************************************
-                            var customurl = "<?php echo $this->getUrl() . 'tavia/index/popup/' ?>";
-                            $.ajax({
-                                url: customurl,
-                                type: 'POST',
-                                dataType: 'json',
-                                data: {
-                                    catRequest: catRequest,
-                                },
-                                complete: function (response) {
-                                    $("#loaderId").hide();
-                                    $("#popupId").html(response.responseText);
-                                    completeArray = JSON.parse($("#completeArrayId").val());
-                                },
-                                error: function (xhr, status, errorThrown) {
-                                    console.log('Error happens. Try again.');
-                                }
-                            });
-                        }
-                    }
-                });
+//                        $button.parent().find('.incr-btn[data-action="decrease"]').removeClass('inactive');
+//                        var sum = 0;
+//                        $.each($('tr.ttl_cls td.plus_minus .s_item[data-group="' + group + '"]'), function (key, value) {
+//                            sum += +$(value).val();
+//                        });
+//                        if (sum > box_size) {
+//                            var extra = sum - box_size;
+//                            newVal = newVal - extra;
+//                            sum = box_size;
+//                            $(this).val(newVal);
+//                        }
+//                        $('.ttl_qty[data-group="' + group + '"]').val(sum);
+//                        $('.ttl_qty_span[data-group="' + group + '"]').text(box_size - $('.ttl_qty[data-group="' + group + '"]').val());
+//                        $('.ttl_display_added_qty[data-group="' + group + '"]').text(sum);
+//                        if (sum == box_size) {
+//                            $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").addClass("alert-success").removeClass("alert-danger");
+//                            $('.ajaxTrigger[data-group="' + group + '"]').removeClass("prevent-popup");
+//                        } else if (sum > box_size) {
+//                            $button.parent().find('.s_item[data-group="' + group + '"]').val(newVal);
+//                            $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").removeClass("alert-success").addClass("alert-danger");
+//                            $('.ajaxTrigger[data-group="' + group + '"]').addClass("prevent-popup");
+//                        } else {
+//                            $('.ttl_display_added_qty[data-group="' + group + '"]').parent("div").removeClass("alert-success").addClass("alert-danger");
+//                            $('.ajaxTrigger[data-group="' + group + '"]').addClass("prevent-popup");
+//                        }
+//                    }
+//                });
+
                 //*************************************************************************************************************************************************
                 // Toggel Filters for popup
                 //*************************************************************************************************************************************************
@@ -1038,50 +1240,7 @@ foreach ($selectionCollection as $proselection) {
                 $("#resetFilter").click(function () {
                     resetFilter();
                 });
-                //*************************************************************************************************************************************************
-                //Plus minus code of append popup
-                //*************************************************************************************************************************************************
-                $(document).on("click", ".incr-btn-popup", function (e) {
-                    var $button = $(this);
-                    var oldValue = $button.parent().find('.s_item-popup').val();
-                    $button.parent().find('.incr-btn-popup[data-action="decrease"]').removeClass('inactive');
-                    if ($button.data('action') == "increase") {
-                        var box_size_popup = $("#catBoxSize").text();
-                        var sum_popup_cal = parseInt($("#catItemSelected").text()) + parseInt(1);
-                        if (sum_popup_cal <= box_size_popup) {
-                            var newVal = parseFloat(oldValue) + 1;
-                        } else {
-                            newVal = oldValue;
-                            $button.addClass('inactive');
-                        }
-                    } else {
-                        if (oldValue > 0) {
-                            var newVal = parseFloat(oldValue) - 1;
-                        } else {
-                            newVal = 0;
-                            $button.addClass('inactive');
-                        }
-                    }
-                    $button.parent().find('.s_item-popup').val(newVal);
-                    var sum_popup = 0;
-                    $.each($("tr.tr-popup td.plus_minus input.s_item-popup"), function (key, value) {
-                        sum_popup += +$(value).val();
-                    });
-                    $("#catItemSelected").text(sum_popup);
-                    var quantity_left = box_size_popup - sum_popup;
-                    $("#quantity_left").text(quantity_left);
-                    if (sum_popup == box_size_popup) {
-                        $('#addBtnId').show();
-                        $("td.plus_minus input.s_item-popup").removeClass("box_error");
-                        $("#popupInfoTab").addClass("success-cls");
-                        $("#addBtnId").removeClass("prevent-popup-add");
-                    } else {
-                        $('#addBtnId').hide();
-                        $("#popupInfoTab").removeClass("success-cls");
-                        $("#addBtnId").addClass("prevent-popup-add");
-                    }
-                    e.preventDefault();
-                });
+
                 //*************************************************************************************************************************************************
                 //Popup items sellection append code
                 //*************************************************************************************************************************************************
@@ -1090,48 +1249,55 @@ foreach ($selectionCollection as $proselection) {
                     e.preventDefault();
                     var catItemSelected = $("#catItemSelected").text();
                     var catBoxSize = $("#catBoxSize").text();
-                    if (catItemSelected == catBoxSize) {
-                        $("td.plus_minus input.s_item-popup").removeClass("box_error"); // Remove the error class from boxes
-                        var catagoryId = $("#data-val-popup").val();
-                        var AppendCatagoryClass = '.' + catagoryId + '_append[data-group="' + group + '"]';
-                        var AppendCatagoryChildClass = catagoryId + '_append_child[data-group="' + group + '"]';
-                        $(AppendCatagoryClass).find("td.gCatQuantity").remove(); // Remove the previous gCatQuantity td
-                        $("table.table-box tr." + AppendCatagoryChildClass).remove(); // Remove the previous Selections
-                        console.log(AppendCatagoryChildClass);
-                        $("<td class='gCatQuantity'><span class='gCatQuantitySelected' id=''>" + catItemSelected + "</span>/<span class='gCatQuantityTotal' >" + catItemSelected + "</span></td>").insertAfter($(AppendCatagoryClass).find("td.plus_minus")); // Hiding the plus minus of catogory
-                        $(".options-list." + catagoryId + "_name").children(".field.choice").children(".options-list").removeClass(catagoryId + "_name");
-                        $(".options-list." + catagoryId + "_name").children(".field.choice").children("input.click_none").click();
-                        $.each($("tr.tr-popup td.plus_minus input.s_item-popup"), function (key, value) {
-                            $(value).attr('data-group', group);
-                            $(value).attr('data-category', catagoryId);
-                            if ($(value).val() > 0) {
-                                $(".bundle-" + $(value).attr("data-id")).click();
-                                $(".bundle-" + $(value).attr("data-id") + "-qty").val($(value).val()).change();
-                                $(".bundle-" + $(value).attr("data-id")).parent(".field.choice").parent(".options-list").addClass(catagoryId + "_name");
-                                $(value).removeClass("s_item-popup").addClass("s_item-append").attr('readonly', true);
-                                $(value).siblings("a.incr-btn-popup").addClass("incr-btn-selection").removeClass("incr-btn-popup").attr("data-title", catagoryId + "_append");
-                                $(value).parent("td.plus_minus").parent("tr.tr-popup").removeAttr("style");
-                                var itemId = $(value).parent("td.plus_minus").parent("tr.tr-popup").attr("id");
-                                var trashId = itemId + "_app";                                              // Id of the append row delete button
-                                var appendItemId = itemId + "_append";                                      // Id of the append row
-                                $(value).parent("td.plus_minus").siblings("td.remove-icons").children("span").addClass("hideinresponsive");
-                                $(value).parent("td.plus_minus").siblings("td.carefree-icon.hideicons").remove();
-                                $(value).parent("td.plus_minus").siblings("td.carefree-title").children("span.responsive_show_icons").children("span.hideinresponsive").addClass("showinresponsive").removeClass("hideinresponsive");
-                                $(value).parent("td.plus_minus").siblings("td.remove-icons").append("<span><a class='deletebtn showinresponsive' data-title='" + catagoryId + "_append' href='javascript:;' id='" + trashId + "'>×</a></span>");
-                                $(value).parent("td").parent("tr").attr("id", appendItemId);
-                                var trVar = $(value).parent("td").parent("tr");
-                                trVar.attr('data-group', group);
-                                $(AppendCatagoryClass).find("td.plus_minus").hide(); // Hiding the plus minus of catogory
-                                $(trVar).insertAfter(AppendCatagoryClass);
-                            }
-                        });
-                        $(".pads-popup").toggleClass("open");
-                    } else {
-                        $("#popupId tr td.plus_minus input.s_item-popup").addClass("box_error");
-                        e.preventDefault();
-                        e.stopImmediatePropagation();
-                        return false;
-                    }
+                    console.log("catItemSelected");
+                    console.log(catItemSelected);
+                    console.log("catBoxSize");
+                    console.log(catBoxSize);
+                    var total_left = catBoxSize - catItemSelected;
+                    $(".ttl_qty_span").text(total_left);
+                    console.log(total_left);
+//                    if (catItemSelected == catBoxSize) {
+                    $("td.plus_minus input.s_item-popup").removeClass("box_error"); // Remove the error class from boxes
+                    var catagoryId = $("#data-val-popup").val();
+                    var AppendCatagoryClass = '.' + catagoryId + '_append[data-group="' + group + '"]';
+                    var AppendCatagoryChildClass = catagoryId + '_append_child[data-group="' + group + '"]';
+                    $(AppendCatagoryClass).find("td.gCatQuantity").remove(); // Remove the previous gCatQuantity td
+                    $("table.table-box tr." + AppendCatagoryChildClass).remove(); // Remove the previous Selections
+                    console.log(AppendCatagoryChildClass);
+                    $("<td class='gCatQuantity'><span class='gCatQuantitySelected' id=''>" + catItemSelected + "</span><span class='gCatQuantityTotal' style='display:none'>" + catItemSelected + "</span></td>").insertAfter($(AppendCatagoryClass).find("td.plus_minus")); // Hiding the plus minus of catogory
+                    $(".options-list." + catagoryId + "_name").children(".field.choice").children(".options-list").removeClass(catagoryId + "_name");
+                    $(".options-list." + catagoryId + "_name").children(".field.choice").children("input.click_none").click();
+                    $.each($("tr.tr-popup td.plus_minus input.s_item-popup"), function (key, value) {
+                        $(value).attr('data-group', group);
+                        $(value).attr('data-category', catagoryId);
+                        if ($(value).val() > 0) {
+                            $(".bundle-" + $(value).attr("data-id")).click();
+                            $(".bundle-" + $(value).attr("data-id") + "-qty").val($(value).val()).change();
+                            $(".bundle-" + $(value).attr("data-id")).parent(".field.choice").parent(".options-list").addClass(catagoryId + "_name");
+                            $(value).removeClass("s_item-popup").addClass("s_item-append").attr('readonly', true);
+                            $(value).siblings("a.incr-btn-popup").addClass("incr-btn-selection").removeClass("incr-btn-popup").attr("data-title", catagoryId + "_append");
+                            $(value).parent("td.plus_minus").parent("tr.tr-popup").removeAttr("style");
+                            var itemId = $(value).parent("td.plus_minus").parent("tr.tr-popup").attr("id");
+                            var trashId = itemId + "_app";                                              // Id of the append row delete button
+                            var appendItemId = itemId + "_append";                                      // Id of the append row
+                            $(value).parent("td.plus_minus").siblings("td.remove-icons").children("span").addClass("hideinresponsive");
+                            $(value).parent("td.plus_minus").siblings("td.carefree-icon.hideicons").remove();
+                            $(value).parent("td.plus_minus").siblings("td.carefree-title").children("span.responsive_show_icons").children("span.hideinresponsive").addClass("showinresponsive").removeClass("hideinresponsive");
+                            $(value).parent("td.plus_minus").siblings("td.remove-icons").append("<span><a class='deletebtn showinresponsive' data-title='" + catagoryId + "_append' href='javascript:;' id='" + trashId + "'>×</a></span>");
+                            $(value).parent("td").parent("tr").attr("id", appendItemId);
+                            var trVar = $(value).parent("td").parent("tr");
+                            trVar.attr('data-group', group);
+                            $(AppendCatagoryClass).find("td.plus_minus").hide(); // Hiding the plus minus of catogory
+                            $(trVar).insertAfter(AppendCatagoryClass);
+                        }
+                    });
+                    $(".pads-popup").toggleClass("open");
+//                    } else {
+//                        $("#popupId tr td.plus_minus input.s_item-popup").addClass("box_error");
+//                        e.preventDefault();
+//                        e.stopImmediatePropagation();
+//                        return false;
+//                    }
                 });
                 function addItemsInSession() {
                     $('.loadericon1').show();
@@ -1231,63 +1397,15 @@ foreach ($selectionCollection as $proselection) {
                 $(document).on("click", ".addextrabox", function (e) {
                     e.preventDefault();
                     addItemsInSession();
-//                    window.location.href = "<?php // echo $this->getUrl() . 'tavia/index/index'                                                                            ?>";
+//                    window.location.href = "<?php // echo $this->getUrl() . 'tavia/index/index'                                                                                                        ?>";
                 });
                 $(document).on("click", ".boxremove", function (e) {
                     e.preventDefault();
                     $(this).html('<sup><i class="fa fa-refresh fa-spin loadericon"></i></sup>');
                     removeItemsfromSession(this.id);
                 });
-                //*************************************************************************************************************************************************
-                // Trash Button code
-                //*************************************************************************************************************************************************
-                $(document).on("click", ".deletebtn", function (e) {
-                    var groupTr = $(this).parent("span").parent("td.carefree-icon").parent("tr.tr-popup").data('group');
-                    $(this).parent("span").parent("td.carefree-icon").parent("tr.tr-popup").remove();
-                    var sum_selection = 0;
-                    var catName = $(this).attr("data-title");
-                    $.each($('tr.' + catName + '_child[data-group="' + groupTr + '"] td.plus_minus input.s_item-append'), function (key, value) {
-                        console.log($(value).val());
-                        sum_selection += +$(value).val();
-                    });
-                    $('tr.' + catName + '[data-group="' + groupTr + '"] td.gCatQuantity span.gCatQuantitySelected').text(sum_selection);
-                });
-                //*************************************************************************************************************************************************
-                //Plus minus code of final selection
-                //*************************************************************************************************************************************************
-                $(document).on("click", ".incr-btn-selection", function (e) {
-                    var $button = $(this);
-                    var grp = $button.parent().parent().data('group');
-                    var catName = $button.attr('data-title');
-                    var oldValue = $button.parent().find('.s_item-append').val();
-                    $button.parent().find('.incr-btn-popup[data-action="decrease"]').removeClass('inactive');
-                    if ($button.data('action') == "increase") {
-                        var box_size_popup = $('tr.' + catName + '[data-group="' + grp + '"] td.gCatQuantity span.gCatQuantityTotal').text();
-                        console.log("tr." + catName + " td.gCatQuantity span.gCatQuantityTotal");
-                        console.log(box_size_popup);
-                        var sum_popup_cal = parseInt($('tr.' + catName + '[data-group="' + grp + '"] td.gCatQuantity span.gCatQuantitySelected').text()) + parseInt(1);
-                        if (sum_popup_cal <= box_size_popup) {
-                            var newVal = parseFloat(oldValue) + 1;
-                        } else {
-                            newVal = oldValue;
-                            $button.addClass('inactive');
-                        }
-                    } else {
-                        if (oldValue > 1) {
-                            var newVal = parseFloat(oldValue) - 1;
-                        } else {
-                            newVal = 1;
-                            $button.addClass('inactive');
-                        }
-                    }
-                    $button.parent().find('.s_item-append').val(newVal);
-                    var sum_selection = 0;
-                    $.each($('tr.' + catName + '_child[data-group="' + grp + '"] td.plus_minus input.s_item-append'), function (key, value) {
-                        console.log($(value).val());
-                        sum_selection += +$(value).val();
-                    });
-                    $('tr.' + catName + '[data-group="' + grp + '"] td.gCatQuantity span.gCatQuantitySelected').text(sum_selection);
-                });
+
+
                 //*************************************************************************************************************************************************
                 //Search Funcnality
                 //*************************************************************************************************************************************************
@@ -1416,42 +1534,6 @@ foreach ($selectionCollection as $proselection) {
 //*************************************************************************************************************************************************
                 $(".modal-header .close").click(function () {
                     $(".pads-popup").toggleClass("open");
-                });
-//*************************************************************************************************************************************************
-// Popup Enable number Entry
-//*************************************************************************************************************************************************
-                $(document).on("change keyup", ".s_item-popup", function () {
-//                    var changed_value = $(this).val();
-                    var box_size_popup = $("#catBoxSize").text();
-//                    var catItemSelected = $("#catItemSelected").text();
-//                    var total_available = parseInt(box_size_popup) - parseInt(catItemSelected);
-                    var sum_popup = 0;
-                    $.each($("tr.tr-popup td.plus_minus input.s_item-popup"), function (key, value) {
-                        sum_popup += +$(value).val();
-                    });
-                    if (sum_popup > box_size_popup) {
-                        $(this).addClass("box_error");
-                        $(this).val(0);
-                    } else {
-                        var quantity_left = box_size_popup - sum_popup;
-                        $("#quantity_left").text(quantity_left);
-                        $("td.plus_minus input.s_item-popup").removeClass("box_error");
-                        $("#catItemSelected").text(sum_popup);
-                        if (sum_popup == box_size_popup) {
-                            $("#addBtnId").show();
-                            console.log("show btn");
-                            $("td.plus_minus input.s_item-popup").removeClass("box_error");
-                            $("#popupInfoTab").addClass("success-cls");
-                            $("#addBtnId").removeClass("prevent-popup-add");
-                        } else {
-                            $("#addBtnId").hide();
-                            console.log("hide btn");
-                            $("#popupInfoTab").removeClass("success-cls");
-                            $("#addBtnId").addClass("prevent-popup-add");
-                        }
-                    }
-//
-//
                 });
 //*************************************************************************************************************************************************
 // Popup Alphabets Disable

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-		<add id="Modulebazaar_Firstdataapi::subscription" title="Subscription" module="Modulebazaar_Firstdataapi" sortOrder="51" resource="Modulebazaar_Firstdataapi::subscription"/>
+        <add id="Modulebazaar_Firstdataapi::subscription" title="Subscription" module="Modulebazaar_Firstdataapi" sortOrder="51" resource="Modulebazaar_Firstdataapi::subscription"/>
 		
         <add id="Modulebazaar_Firstdataapi::subscriptiontavia" title="Manage Subscriptions" module="Modulebazaar_Firstdataapi" sortOrder="10" action="modulebazaar_firstdataapi/subscriptiontavia" resource="Modulebazaar_Firstdataapi::subscriptiontavia" parent="Modulebazaar_Firstdataapi::subscription"/>
     </menu>
